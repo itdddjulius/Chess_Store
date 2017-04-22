@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="small-7 columns">
+    <h3><%= @item.name %></h3>
+  </div>
+  <div class="small-5 columns">
+    <%= image_tag 'img_not_available.png' %>
+  </div>
+</div>
+
+<p>
+  <b>Description</b>: <%= @item.description %>
+</p>
+
+<p>
+  <b>Price</b>: <%= @item.current_price.nil? ? 'N/A' : number_to_currency(@item.current_price) %>
+</p>
+
+<p>
+  <b>Inventory Level</b>: <%= @item.inventory_level.nil? ? 'N/A' : @item.inventory_level %>
+</p>
+
+<p>
+  <b>Reorder Level</b>: <%= @item.reorder_level.nil? ? 'N/A' : @item.reorder_level %>
+</p>
+
+<p>
+  <b>Category</b>: <%= @item.category.capitalize %>
+</p>
+
+<p>
+  <b>Color</b>: <%= @item.color.nil? ? 'N/A' : @item.color %>
+</p>
+
+<p>
+  <b>Total weight</b>: <%= @item.weight.nil? ? 'N/A' : @item.weight %> lbs.
+</p>
+
+<p>
+  <b>Active</b>: <%= @item.active ? 'Yes' : 'No' %>
+</p>

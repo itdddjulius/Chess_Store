@@ -1,0 +1,349 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ * {
+ 	-webkit-transition: 0.2s; /* For Safari 3.1 to 6.0 */
+	transition: 0.2s;
+ }
+
+ body {
+ 	overflow: auto !important;
+ }
+ .container {
+ 	width: 75% !important;
+ }
+
+ .unselectable {
+ 	-webkit-user-select: none; /* Chrome/Safari */        
+ 	-moz-user-select: none; /* Firefox */
+ 	-ms-user-select: none; /* IE10+ */
+
+ 	/* Rules below not implemented in browsers yet */
+ 	-o-user-select: none;
+ 	user-select: none;
+ }
+
+ .seventy-container {
+ 	width: 70%;
+ 	margin: 0px auto;
+ }
+
+ .darken-on-hover:hover {
+	-webkit-filter:brightness(75%);
+	-moz-filter:brightness(75%);
+	filter: url(#brightness); /* required for FF */
+	filter:brightness(75%);
+ }
+
+ .grey-border {
+ 	border: 1px solid #d6d8db;
+ 	border-radius: 5px;
+ 	padding: 20px 30px;
+ 	margin-top: 10px;
+ 	margin-bottom: 20px;
+ }
+ .orange-border {
+ 	border: 1px solid #e77600;
+ 	border-radius: 5px;
+ 	padding: 20px 30px;
+ }
+
+ .grey-button {
+ 	background-color: #f2f3f6;
+ 	padding-left: 15px;
+ 	padding-right: 15px;
+ 	padding-top: 7px;
+ 	padding-bottom: 7px;
+ 	border-radius: 3px; 
+ 	border: 1px solid #a7a7a7;
+ 	color: black;
+ }
+.grey-button:hover, .grey-button:focus {
+	background-color: #d6d8db; }
+.grey-button:hover, .grey-button:focus {
+	color: black; }
+
+.gold-button {
+	background-color: #f4d078;
+ 	padding-left: 15px;
+ 	padding-right: 15px;
+ 	padding-top: 7px;
+ 	padding-bottom: 7px;
+ 	border-radius: 3px; 
+ 	border: 1px solid #a88734;
+ 	color: black;
+}
+.gold-button:hover, .gold-button:focus {
+	background-color: #f2c862; }
+.gold-button:hover, .gold-button:focus {
+	color: black; }
+
+.form-field {
+	border-radius: 4px !important;
+}
+
+hr.grey-line {
+	position: relative;
+	border-color: #d6d8db;
+	background-color: #d6d8db;
+	color: #d6d8db;
+	border-style: solid;
+	margin-top: 7px;
+}
+
+ /* Colors */
+ .red {
+ 	background-color: #e01313 !important;
+ }
+ .red-text {
+ 	color: #e01313 !important;
+ }
+ .navy-blue {
+ 	background-color: #37475a !important;
+ }
+ .navy-blue-text {
+ 	color: #37475a !important;
+ }
+ .dark-navy-blue {
+	background-color: #232f3e !important;
+ }
+ .dark-navy-blue-text {
+ 	color:  #232f3e !important;
+ }
+ .navy-blue-black {
+ 	background-color: #131a22;
+ }
+ .navy-blue-black-text {
+ 	color: #131a22;
+ }
+
+ /* positioning */
+ .eighty-width {
+ 	width: 80%;
+ }
+ .full-width {
+ 	width: 100%;
+ }
+
+ /* Pagination Styles */
+.item-pagination {
+margin: 10px 0px;
+text-align: center;
+padding: 1em;
+cursor: default;
+/* self-clearing method: */ }
+.item-pagination a, .item-pagination span, .item-pagination em {
+padding: 0.4em 0.7em; 
+border-radius: 3px; 
+background-color: #ebedef;
+-webkit-transition: 0.2s; /* For Safari 3.1 to 6.0 */
+transition: 0.2s; }
+.item-pagination .disabled {
+background-color: white;
+color: #999999;
+border: 1px solid #dddddd; }
+.item-pagination .current {
+font-style: normal;
+font-weight: bold;
+color: #E77600;
+border: 1px solid #E77600;
+background-color: white; }
+.item-pagination a {
+text-decoration: none;
+color: black;
+border: 1px solid #a7a7a7; }
+.item-pagination a:hover, .item-pagination a:focus {
+color: black;
+background: #d6d8db; }
+.item-pagination .page_info {
+background: #2e6ab1;
+color: white;
+padding: 0.4em 0.6em;
+width: 22em;
+margin-bottom: 0.3em;
+text-align: center; }
+.item-pagination .page_info b {
+color: #000033;
+background: #6aa6ed;
+padding: 0.1em 0.25em; }
+.item-pagination:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden; }
+* html .item-pagination {
+height: 1%; }
+*:first-child + html .item-pagination {
+overflow: hidden; }
+
+/* Item Browse List */
+.item-browse {
+	font-size: 15px;
+}
+.item-row {
+	border-top: 1px solid #d7d7d7;
+	padding: 15px 0px;
+}
+
+.item-block {
+}
+
+.item-image {
+	border-bottom: 1px solid #d7d7d7;
+	margin-bottom: 10px;
+}
+
+#item-browse-control {
+	position: fixed;
+	z-index: 1;
+	min-width: 140px;
+	min-width: 120px;
+	/*border-right: 1px solid #d7d7d7;*/
+	padding-right: 10px;
+	
+}
+
+#item-browse-control .section-label {
+	font-family: "Arial Black";
+	font-size: 12px;
+	margin-bottom: 8px;
+}
+
+#item-browse-control .item-browse-control-section {
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	padding-left: 10px;
+	padding-right: -10px;
+	padding-top: 5px;
+	margin-bottom: 5px;
+}
+
+#wrapper {
+	min-height:100%;
+	position:relative;
+}
+
+#header {
+	margin-bottom: 20px;
+}
+#content {
+	padding-bottom: 335px; /* Height of the footer element */
+}
+#footer {
+	width:100%;
+	height:311px;
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+
+/* header */
+header {
+	background-color;
+}
+header .am-logo {
+	height: 50px;
+}
+header .header-top-half {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+header .header-bottom-half {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+header .header-bottom-half .nav-item-link {
+	height: 50px;
+	margin-right: 24px; /*50 - padding left + right*/
+	color: #fff;
+	padding-top: 11px;
+	padding-bottom: 10px;
+	padding-right: 13px;
+	padding-left: 13px;
+}
+header .header-bottom-half .nav-item-link:hover {
+	background-color: #232f3e;
+}
+
+/* footer */
+footer {
+	color: #fff;
+	font-size: 12px;
+	display: fixed !important;
+}
+footer .footer-top-half {
+	padding-top: 15px;
+	padding-bottom: 20px;
+}
+footer .footer-bottom-half {
+	padding-top: 15px;
+	padding-bottom: 20px;
+}
+
+footer .section-label {
+	font-family: "Arial Black";
+	font-size: 12px;
+}
+
+footer a {
+	color: #fff !important;
+	transition: 0.75s;
+}
+footer a:hover {
+	text-decoration: underline;
+}
+
+footer .accepted-cards-img {
+	height: 32px;
+}
+footer .cancan-img {
+	height: 48px;
+}
+footer .social-media-link:hover {
+	text-decoration: none !important;
+}
+footer .social-media-img {
+	height: 32px;
+	-webkit-transition: 0.5s; /* For Safari 3.1 to 6.0 */
+	transition: 0.5s;
+}
+footer .social-media-img:hover {
+	text-decoration: none;
+}
+
+/* Jokes */
+.forgot-password-joke:after {
+	content: 'Forget your password?';
+}
+.forgot-password-joke:hover:after {
+	content: 'Too bad.';
+}
+
+#error_explanation {
+	margin-top: 80px;
+	padding: 15px 20px;
+}
+
+.error {
+	position: relative;
+	background-color: #e01313 !important;
+	border-radius: 4px !important;
+
+	margin-top: -20px !important;
+	padding-bottom: 3px !important;
+	z-index: -1 !important;
+}

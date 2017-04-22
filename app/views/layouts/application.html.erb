@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>A&M Chess :: <%= controller.controller_name.capitalize %></title>
+		
+		<%= stylesheet_link_tag    "application" %>
+		<%= javascript_include_tag "vendor/modernizr" %>
+
+		<%= csrf_meta_tags %>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<div id="header">
+				<div id="title_area">
+					
+				</div>
+				<%= render :partial => "partials/nav" %>
+			</div>
+			<div id="content">
+				<div class="row">
+					<div class="small-12 columns">
+						<%= render :partial => "partials/flash" %>
+					</div>
+				</div>
+				
+				<div class="row" style="margin-top: 20px;">
+					<div class="small-12 columns" id="main_content">
+						<%= yield %>
+					</div>
+				</div>
+			</div>
+			
+			<div id="footer">
+				<%= render partial: 'partials/footer' %>
+			</div>
+		</div>
+		<%= javascript_include_tag "application" %>
+	</body>
+</html>

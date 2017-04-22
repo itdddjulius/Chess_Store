@@ -1,0 +1,58 @@
+<!-- This partial represents a paginated items list for browsing-->
+    
+<div class="item-browse">
+
+<!--  Top of page pagination -->
+<div class="row">
+	<div class="small-6 columns" style="color: #a7a7a7; margin-top: 45px;">
+		<%= getBrowseState() %>
+	</div>
+	<div class="small-6 columns">
+		<div class="item-pagination unselectable" style="float: right;">
+			<%= will_paginate @items %>
+		</div>
+	</div>
+</div>
+
+
+<!-- Item display grid -->
+
+<!-- all items -->
+<!-- if there is nothing to show -->
+<% if @items == nil || @items.empty? %>
+	<div class="row item-row text-center" style="font-size: 20; font-weight: bold">
+		There are no items to be shown.
+	</div>
+<!-- There is something to show -->
+<% else %>
+	<% idx = 0 %>
+	<% while idx < @items.length %>
+		<div class="row item-row">
+			<!-- each row -->
+			<% itemCount = 0 %>
+			<% while itemCount < 3  && idx < @items.length %>
+				<!-- each item -->
+				<% @item = @items[idx] %>
+				<% if @item != nil %>
+					<!-- Content -->
+					<div class="small-4 columns item-block text-center">
+						<%= render :partial => "item_browse_info" %>
+					</div>
+					<% itemCount += 1 %>
+				<% end %>
+
+				<% idx += 1 %>
+			<% end %>
+		</div>
+	<% end %>
+<% end %>
+
+
+<!--  Bottom of page pagination -->
+<div class="row">
+	<div class="item-pagination unselectable" style="float: right;">
+		<%= will_paginate @items %>
+	</div>
+</div>
+
+</div>

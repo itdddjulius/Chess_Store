@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2017-01-09
+  school_id: 
+  grand_total: 9.99
+  payment_receipt: MyString
+
+two:
+  date: 2017-01-09
+  school_id: 
+  grand_total: 9.99
+  payment_receipt: MyString

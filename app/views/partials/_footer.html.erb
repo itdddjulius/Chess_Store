@@ -1,0 +1,89 @@
+<footer>
+	<div class="footer-top-half dark-navy-blue">
+		<!-- Links -->
+		<div class="row text-left footer-top-half " style="margin-bottom: 20px;">
+			<!-- Questions? -->
+			<div class="small-2 small-offset-2 columns">
+				<span class="section-label">QUESTIONS?</span><br/>
+				<%= link_to 'Help', contact_path %><br/>
+				<%= mail_to("fliao@andrew.cmu.edu", "Contact", encode: "javascript") %><br/>
+				Track Order<br/>
+				Delivery<br/>
+				Return Policy
+			</div>
+			<!-- Account -->
+			<div class="small-2 columns">
+				<span class="section-label">YOUR INFO</span><br/>
+				Your Account<br/>
+				Your Orders<br/>
+				Your Cart</br>
+			</div>
+			<!-- What's In Store -->
+			<div class="small-2 columns">
+				<span class="section-label">WHAT'S IN STORE</span><br/>
+				<%= link_to 'Boards', browse_path(category: "boards") %><br/>
+				<%= link_to 'Pieces', browse_path(category: "pieces") %><br/>
+				<%= link_to 'Clocks', browse_path(category: "clocks") %><br/>
+				<%= link_to 'Supplies', browse_path(category: "supplies") %>
+			</div>
+			<!-- Personal -->
+			<div class="small-2 columns">
+				<span class="section-label">FRANK LIAO</span><br/>
+				<a href="linkedin.com/in/fliao" target="_blank">
+					LinkedIn
+				</a><br/>
+				<a href="http://67272.cmuis.net/home" target="_blank">
+					67-272 Course Page
+				</a><br/>
+				<a href="https://www.cmu.edu/information-systems/" target="_blamk">
+					CMU IS Official Page
+				</a><br/>
+				
+			</div>
+			<span class="small-2 columns"></span>
+		</div>
+		<!-- Cards and Social Media -->
+		<div class="row unselectable">
+			<div class="small-4 small-offset-2 columns text-left">
+				<%= image_tag("order/accepted-cards.png", class: 'accepted-cards-img') %>
+			</div>
+			<div class="small-4 columns">
+				<div style="float: right;">
+					<a href="https://www.facebook.com/AM-Chess-Store-1819707475015981/" target="_blank" class="social-media-link">
+						<%= image_tag("footer/facebook.png", class: 'social-media-img darken-on-hover') %>
+					</a>
+					<a href="https://twitter.com/amchessstore" target="_blank" class="social-media-link">
+						<%= image_tag("footer/twitter.png", class: 'social-media-img darken-on-hover') %>
+					</a>
+
+					<%= image_tag("footer/instagram.png", class: 'social-media-img darken-on-hover') %>
+				</div>
+			</div>
+			<span class="small-2 columns"></span>
+		</div>
+	</div>
+	<div class="footer-bottom-half navy-blue-black">
+		<!-- Misc -->
+		<div class="row">
+			<div class="small-8 small-offset-2 columns">
+				<!-- Content -->
+				<div class="row">
+					<div class="small-2 columns">
+						<%= image_tag("footer/cancan.png", class: 'cancan-img unselectable') %>
+					</div>
+					<div class="small-8 columns text-center" style="padding-top: 15px; font-size: 13px;">
+						<%= link_to 'Home', home_path %>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<%= link_to 'About the Chess Store', about_path %>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<%= link_to 'Contact Us', contact_path %>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<%= link_to 'Privacy Policy', privacy_path %>
+					</div>
+					<div class="small-2 columns" style="padding-top: 10px; font-size: 9px; float: right;">
+						©2017 A&M Chess<br/>
+						All rights reserved
+					</div>
+				</div>
+			</div>
+			<span class="small-2 columns"></span>
+		</div>
+	</div>
+</footer>
