@@ -105,10 +105,10 @@ hr.grey-line {
 	margin-top: 7px;
 }
 
- /* Colors */
- .red {
- 	background-color: #e01313 !important;
- }
+/* Colors */
+.red {
+	background-color: #e01313 !important;
+}
  .red-text {
  	color: #e01313 !important;
  }
@@ -144,6 +144,31 @@ hr.grey-line {
  .full-width {
  	width: 100%;
  }
+
+/*auto complete widget*/
+.ui-autocomplete-input {
+	border-radius: 4px !important;
+}
+ul.ui-autocomplete {
+    list-style: none;
+    -webkit-transition: 0s; /* For Safari 3.1 to 6.0 */
+	transition: 0s;
+}
+
+ul.ui-autocomplete:hover {
+    /*This is the list of items*/
+}
+
+.ui-menu-item-wrapper {
+	padding: 3px 10px;
+	font-size: 15px;	
+}
+
+.ui-menu-item-wrapper:hover {
+	background-color: #d6d8db;
+	color: black;
+	border: none;
+}
 
  /* Pagination Styles */
 .item-pagination {

@@ -15,12 +15,3 @@
 //= require jquery-ui/widgets/autocomplete
 //= require foundation.min
 //= require_tree .
-
-$(function() {
-  $(document).foundation('topbar', 'reflow');
-});
-
-$(function() {
-	$(document).foundation();
-  $(document).foundation('dropdown', 'reflow');
-});
