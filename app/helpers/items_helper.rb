@@ -4,7 +4,7 @@ module ItemsHelper
 	def getBrowseState()
 		state = "Showing "
 		# search
-		if params.has_key?(:term)
+		if params.has_key?(:term) && params[:term] != ''
 			state += "results for '#{params[:term]}'"
 		else
 			state += "items"
