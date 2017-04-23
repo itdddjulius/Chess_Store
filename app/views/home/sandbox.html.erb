@@ -1,7 +1,3 @@
-<a class="item">
-    <i class="fi-home"></i>
-  </a>
-
 <%= form_tag(browse_path, :method => "get", id: "search-form") do %>
 	<!-- text field tag=action,args,identifier,placeholdertext... -->
 	<%= text_field_tag :term, params[:term], class: "form-field", placeholder: "Search for an item...", type: "search", data: {autocomplete: items_autocomplete_item_name_path } %>  

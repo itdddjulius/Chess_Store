@@ -73,7 +73,7 @@
  	color: black;
  }
 .grey-button:hover, .grey-button:focus {
-	background-color: #e4bb59; }
+	background-color: #d6d8db; }
 .grey-button:hover, .grey-button:focus {
 	color: black; }
 
@@ -88,7 +88,7 @@
  	color: black;
 }
 .gold-button:hover, .gold-button:focus {
-	background-color: #f2c862; }
+	background-color: #e4bb59; }
 .gold-button:hover, .gold-button:focus {
 	color: black; }
 
