@@ -1,17 +1,18 @@
 module ItemsHelper
+	ALL_CATEGORIES = ["boards", "pieces", "clocks", "supplies"]
 	# browse statement
 	def getBrowseState()
 		state = "Showing "
 		# search
 		if params.has_key?(:term)
-			state += "'#{params[:term]}'"
+			state += "results for '#{params[:term]}'"
 		else
-			state += "all items"
+			state += "items"
 		end
 
 		state += " in "
 		# categories
-		if params.has_key?(:category)
+		if params.has_key?(:category) && params[:category] != ALL_CATEGORIES
 			if params[:category].kind_of? Array
 				state += "'#{params[:category].join(", ")}'"
 			else
