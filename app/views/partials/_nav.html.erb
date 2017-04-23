@@ -7,8 +7,24 @@
 				<% end %>
 			</div>
 			<div class="small-6 columns">
-				<div class="items-search">
-					
+				<div class="items-search row">
+					<%= form_tag(browse_path, :method => "get", id: "search-form") do %>
+							<div class="small-10 columns">
+								<!-- text field tag=action,args,identifier,placeholdertext... -->
+								<%= text_field_tag :term, params[:term], class: "form-field", placeholder: "Search for an item...", type: "search", data: {autocomplete: items_autocomplete_item_name_path } %>
+							</div>
+							<div class="small-2 columns" style="height: 37px;">
+								<%= button_tag(type: 'submit', class: 'gold-button nav-search-button') do %>
+									<%= image_tag("icons/search-navy-blue", class: 'nav-search-icon') %>
+								<% end %>
+							</div>
+					<% end %>
+
+					<script type="text/javascript" charset="utf-8">
+						$('#term').bind('railsAutocomplete.select', function(event, data){
+							window.location.replace("/items/" + data.item.id);
+						});
+					</script>
 				</div>
 			</div>
 			<div class="small-3 columns">
