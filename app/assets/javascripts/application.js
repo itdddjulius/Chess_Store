@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/widgets/autocomplete
 //= require foundation.min
 //= require_tree .
 
@@ -20,5 +21,6 @@ $(function() {
 });
 
 $(function() {
+	$(document).foundation();
   $(document).foundation('dropdown', 'reflow');
 });

@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 		@user.role = "customer"
 		if @user.save
 			session[:user_id] = @user.id
-			redirect_to login_path, notice: "Successfully created your account."
+			redirect_to home_path, notice: "Successfully created your account."
 		else
 			render action: 'new'
 		end

@@ -6,14 +6,29 @@
 					<%= image_tag("a&m-logo.png", class: 'am-logo unselectable darken-on-hover') %>
 				<% end %>
 			</div>
-			<div class="small-7 columns">
+			<div class="small-6 columns">
 				<div class="items-search">
 					<!-- <input type="text" id="books-search-txt" autofocus>
 					<div class="results" id="books-search-results"></div> -->
 				</div>
 			</div>
-			<span class="small-2 columns">
-			</span>
+			<div class="small-3 columns">
+				<div id="log" class="row" style="text-align: right;">
+					<% if logged_in? %>
+						<%= link_to 'Logout', logout_path %>
+					<% else %>
+						<%= link_to 'Login', login_path %>
+					<% end %>
+				</div>
+				<div class="row">
+					<% if logged_in? %>
+						Hello, <%= current_user.proper_name %><br/>
+						<div style="">
+							Dashboard
+						</div>
+					<% end %>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -25,49 +40,10 @@
 				<%= link_to 'Clocks', browse_path(category: "clocks"), class: "nav-item-link" %>
 				<%= link_to 'Supplies', browse_path(category: "supplies"), class: "nav-item-link" %>
 			</div>
-			<script>
+			<div class="small-6 columns">
 
-			</script>
+			</div>
 		</div>
-	</div>
-	<a href="#" data-dropdown="hover1" data-options="is_hover:true;">Has Hover Dropdown</a>
-
-	<ul id="hover1" class="f-dropdown" data-dropdown-content>
-	  <li><a href="#">This is a link</a></li>
-	  <li><a href="#">This is another</a></li>
-	  <li><a href="#">Yet another</a></li>
-	</ul>
-
-	<div class="contain-to-grid">
-	  <nav class="top-bar" data-topbar role="navigation"> 
-	    <section class="top-bar-section">
-	      <ul class="left">
-	        <!-- link to home -->
-	        <li><%= link_to "Home", home_path %></li>
-
-	        <!-- options for items -->
-	        <li class="has-dropdown">
-	          <%= link_to "Items", items_path %>
-	          <ul class="dropdown">
-	            <li><%= link_to "Item List", items_path %></li>
-	            <li><%= link_to "Reorder List", home_path %></li>
-	            <li><%= link_to "Add an Item", new_item_path %></li>
-	          </ul>
-	        </li>
-
-	        <!-- options for purchases -->
-	        <li>
-	          <%= link_to "Purchases", purchases_path %>
-	        </li>
-
-	        <!-- options for prices -->
-	        <li>
-	          <%= link_to "Prices", item_prices_path %>
-	        </li>
-	      </ul>
-
-	    </section>
-	  </nav>
 	</div>
 </header>
 

@@ -1,20 +1,21 @@
 <div class="grey-border">
 	<%= form_for @user do |f| %>
-		<div class="row">
+		<span class="grey-text" style="font-size: 14px;">* - required</span>
+		<div class="row" style="margin-top: 10px;">
 			<div class="small-6 columns">
-				<%= f.label :first_name %>
+				<%= f.label :first_name, "First name*" %>
 				<%= f.text_field :first_name, class: "form-field" %>
 				<!-- <small class="error">First name can't be blank</small> -->
 			</div>
 			<div class="small-6 columns">
-				<%= f.label :last_name %>
+				<%= f.label :last_name, "Last name*" %>
 				<%= f.text_field :last_name, class: "form-field" %>
 				<!-- <small class="error">Last name can't be blank</small> -->
 			</div>
 		</div>
 		<div class="row">
 			<div class="small-8 columns">
-				<%= f.label :email, "Email Address" %>
+				<%= f.label :email, "Email Address*" %>
 				<%= f.text_field :email, class: "form-field" %>
 				<!-- <small class="error">Email can't be blank</small> -->
 			</div>
@@ -29,21 +30,21 @@
 		<hr class="grey-line"/>
 		<div class="row">
 			<div class="small-8 columns">
-				<%= f.label :username, "Username" %>
+				<%= f.label :username, "Username*" %>
 				<%= f.text_field :username, class: "form-field" %>
 				<!-- <small class="error">Username can't be blank</small> -->
 			</div>
 		</div>
 		<div class="row">
 			<div class="small-6 columns">
-				<%= f.label :password %>
+				<%= f.label :password, "Password*" %>
 				<%= f.password_field :password, class: "form-field" %>
 				<!-- <small class="error">Password can't be blank</small> -->
 			</div>
 		</div>
 		<div class="row">
 			<div class="small-6 columns">
-				<%= f.label :password_confirmation, "Confirm Password" %>
+				<%= f.label :password_confirmation, "Confirm Password*" %>
 				<%= f.password_field :password_confirmation, class: "form-field" %>
 			</div>
 		</div>

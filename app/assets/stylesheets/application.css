@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require jquery-ui/autocomplete
  *= require_tree .
  *= require_self
  */
@@ -128,6 +129,12 @@ hr.grey-line {
  }
  .navy-blue-black-text {
  	color: #131a22;
+ }
+ .grey-text {
+ 	color: #a7a7a7 !important;
+ }
+ .grey {
+ 	background-color: #a7a7a7 !important;
  }
 
  /* positioning */
@@ -254,6 +261,7 @@ overflow: hidden; }
 /* header */
 header {
 	background-color;
+	color: white;
 }
 header .am-logo {
 	height: 50px;
@@ -261,6 +269,7 @@ header .am-logo {
 header .header-top-half {
 	padding-top: 20px;
 	padding-bottom: 20px;
+	font-size: 12px;
 }
 header .header-bottom-half {
 	padding-top: 7px;
@@ -277,6 +286,16 @@ header .header-bottom-half .nav-item-link {
 }
 header .header-bottom-half .nav-item-link:hover {
 	background-color: #232f3e;
+}
+#log {
+}
+
+#log a {
+	color: white;
+}
+#log a:hover {
+	color: #a7a7a7;
+	text-decoration: underline;
 }
 
 /* footer */
@@ -301,10 +320,10 @@ footer .section-label {
 
 footer a {
 	color: #fff !important;
-	transition: 0.75s;
 }
 footer a:hover {
 	text-decoration: underline;
+	color: #a7a7a7 !important;
 }
 
 footer .accepted-cards-img {
