@@ -3,7 +3,9 @@
 		<%= render :partial => "item_browse_controls" %>
 	</div>
 	<div class="small-10 columns">
-		<%= render :partial => "item_browse" %>
+		<div class="item-browse-control-wrapper">
+			<%= render :partial => "item_browse" %>
+		</div>
 	</div>
 </div>
 <script>
@@ -17,6 +19,6 @@
 	}
 
 	$(document).scroll(function() {
-		checkControlsOffset();
+		// checkControlsOffset();
 	});
 </script>

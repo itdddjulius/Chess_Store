@@ -146,6 +146,10 @@ hr.grey-line {
  }
 
 /*auto complete widget*/
+#item-search
+.item-search {
+	border-radius: 4px !important;
+}
 .ui-autocomplete-input {
 	border-radius: 4px !important;
 }
@@ -239,11 +243,15 @@ overflow: hidden; }
 	margin-bottom: 10px;
 }
 
+.item-browse-control-wrapper {
+	min-height: 500px;
+}
 #item-browse-control {
-	position: fixed;
-	z-index: 1;
-	min-width: 140px;
+	position: absolute;
+	/*z-index: 1;*/
+	max-width: 140px;
 	min-width: 120px;
+	min-height: 500px;
 	/*border-right: 1px solid #d7d7d7;*/
 	padding-right: 10px;
 	

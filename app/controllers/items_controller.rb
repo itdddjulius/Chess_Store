@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 	helper ItemsHelper
-	# autocomplete :item, :name, :full => true
-	before_action :check_login, except: [:browse, :details]
+	autocomplete :item, :name, :full => true
+	before_action :check_login, only: [:index, :show, :new, :edit, :create, :update, :destroy]
   
 	PER_PAGE = 9
 
@@ -57,11 +57,15 @@ class ItemsController < ApplicationController
 	def browse
 		@items = Item.active
 
+		# Name Query
+		if params.has_key?(:term)
+			@items = itemsForName(@items, params[:term])
+		end
+
+
 		# Categories
 		if params.has_key?(:category)
 			@items = itemsForCategories(@items, params[:category])
-		else
-			@items = Item.all
 		end
 
 		# Sort
@@ -84,14 +88,19 @@ class ItemsController < ApplicationController
 	def item_params
 		params.require(:item).permit(:name, :description, :color, :category, :weight, :inventory_level, :reorder_level, :active)
 	end
+
+	# takes in an ActiveRecord and a name to query and returns an ActiveRecord of those items
+	def itemsForName(items, name)
+		return items.where("LOWER(items.name) LIKE '%#{name}%'")
+	end
 	
-	# takes in array of categories and dan activerecord of items and returns an ActiveRecord of those categories
+	# takes in array of categories and an activerecord of items and returns an ActiveRecord of those categories
 	def itemsForCategories(items, categories)
 		if categories.kind_of? Array
 			conditions = []
 
 			for category in categories
-				conditions.push("items.category = '#{category}'")
+				conditions.push("LOWER(items.category) = '#{category}'")
 			end
 
 			return items.where(conditions.join(" OR "))

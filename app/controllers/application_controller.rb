@@ -20,4 +20,17 @@ class ApplicationController < ActionController::Base
 	def check_not_login
 		redirect_to home_path, alert: "You are already logged in." if !current_user.nil?
 	end
+
+	def getGrandParam(ps)
+		if ps.kind_of? Array
+
+		else
+			if params.has_key?(:parameters)
+				parameters = parse_nested_query(params[:parameters])
+				return parameters[ps]
+			else
+				return nil
+			end
+		end
+	end
 end
