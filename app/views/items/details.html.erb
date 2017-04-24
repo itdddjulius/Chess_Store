@@ -1,5 +1,3 @@
-Image
-Name
 Price
 Possibly previous price
 All colors
@@ -8,20 +6,62 @@ People also bought
 
 <div class="row">
 	<!-- Basic Item Information -->
-	<div class="small-8 columns">
-		<%= @item.name %>
+	<div class="small-7 columns">
+		<h3><%= @item.name %></h3>
 		<%= link_to "shop all " + @item.category.capitalize, browse_path(category: @item.category) %>
-
-		<% options = {height: '240', width: '240', class: "item-image unselectable", alt: "No Image Available"} %>
+		<hr class="grey-line"/>
+		<!-- Image -->
+		<% options = {height: '240', width: '240', class: "item-image unselectable text-center", alt: "No Image Available"} %>
 		<%= image_tag(getImagePath(@item.name), options) %>
+		<hr class="grey-line"/>
+		<div style="padding-right: 20px; padding-left: 20px;">
+			<div class="section-label">
+				PRODUCT DETAIL
+			</div><br/>
+			<%= @item.description %><br/><br/>
+		</div>
+		<hr class="grey-line"/>
+		<!-- color, weight -->
+		<div style="padding-right: 20px; padding-left: 20px;">
+			<ul class="small-block-grid-3">
+				<li>
+					<div class="section-label">
+						COLOR
+					</div>
+					<%= @item.color %>
+				</li>
+				<li>
+					<div class="section-label">
+						WEIGHT
+					</div>
+					<%= @item.weight %> lbs
+				</li>
+			</ul>
+		</div>
 	</div>
 	<!-- Item Actions i.e. add to cart -->
-	<div class="small-4 columns">
-
+	<div class="small-5 columns">
+		<!-- Pricing Information -->
+		<% if @highest_price != nil && @highest_price > @current_price %>
+			<div class="section-label red-text">
+				NOW
+				<h2 class="red-text"><%= @current_price %></h2>
+			</div>
+			<span class="section-label">WAS <%= @highest_price %></span>
+		<% elsif @current_price == nil %>
+			<h2>Price Not Set</h2>
+		<% else %>
+			<span class="section-label">PRICE</span><br/>
+			<h2><%= @current_price %></h2>
+		<% end %>
 	</div>
 </div>
 <!-- Extra Information -->
 <!-- Customers also bought... -->
 <div class="row">
-
+	<ul class="example-orbit" data-orbit>
+	<% for item in @other_bought_items %>
+		
+	<% end %>
+	</ul>
 </div>

@@ -2,16 +2,25 @@
 
 <!-- image -->
 <div class="row text-center">
-	<% options = {height: '150', width: '150', class: "item-image unselectable", alt: "No Image Available"} %>
+	<% options = {height: '150', width: '150', class: "item-thumbnail unselectable", alt: "No Image Available"} %>
 	<%= image_tag(getThumbnailPath(@item.name), options) %>
 </div>
 
+<!-- Prices -->
+<% highest_price = ItemPrice.for_item(@item).maximum(:price) %>
+<% @highest_price = highest_price != nil ? sprintf("$%.2f", highest_price) : nil %>
+<% @current_price = @item.current_price != nil ? sprintf("$%.2f", @item.current_price) : nil %>
 <!-- if active/available -->
 <% if @item.active %>
 	<!-- Price -->
 	<div style="font-weight: bold; font-size: 20px;">
-		<% if @item.current_price != nil %>
-			<%= sprintf "$%.2f", @item.current_price %>
+		<% if @current_price != nil %>
+			<% if @highest_price != nil && @highest_price > @current_price %> 
+				<span class="section-label red-text" style="font-size: 12px;">Sale</span><br/>
+				<span class="red-text"><%= @current_price %></span>
+			<% else %>
+				<%= @current_price %>
+			<% end %>
 		<% else %>
 			<span style="font-style: italic">Price Not Set</span>
 		<% end %>

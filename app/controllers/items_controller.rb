@@ -25,7 +25,13 @@ class ItemsController < ApplicationController
 	end
 
 	def details
-
+		highest_price = ItemPrice.for_item(@item).maximum(:price)
+		@highest_price = highest_price != nil ? sprintf("$%.2f", highest_price) : nil
+		@current_price = @item.current_price != nil ? sprintf("$%.2f", @item.current_price) : nil
+		# Other bought items
+		@other_bought_items = @item.orders.all.to_a.map { |o| o.items.all.to_a }
+		@other_bought_items = @other_bought_items.flatten.uniq
+		#@other_colors = 
 	end
 
 	def new
