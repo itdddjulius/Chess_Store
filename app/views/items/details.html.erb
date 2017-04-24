@@ -5,3 +5,23 @@ Possibly previous price
 All colors
 Description
 People also bought
+
+<div class="row">
+	<!-- Basic Item Information -->
+	<div class="small-8 columns">
+		<%= @item.name %>
+		<%= link_to "shop all " + @item.category.capitalize, browse_path(category: @item.category) %>
+
+		<% options = {height: '240', width: '240', class: "item-image unselectable", alt: "No Image Available"} %>
+		<%= image_tag(getImagePath(@item.name), options) %>
+	</div>
+	<!-- Item Actions i.e. add to cart -->
+	<div class="small-4 columns">
+
+	</div>
+</div>
+<!-- Extra Information -->
+<!-- Customers also bought... -->
+<div class="row">
+
+</div>

@@ -4,7 +4,7 @@
 
 <!--  Top of page pagination -->
 <div class="row">
-	<div class="small-6 columns" style="color: #a7a7a7; margin-top: 45px;">
+	<div class="small-6 columns" style="color: #a7a7a7; position: relative; top: 30px;">
 		<%= getBrowseState() %>
 	</div>
 	<div class="small-6 columns">
@@ -35,9 +35,11 @@
 				<% @item = @items[idx] %>
 				<% if @item != nil %>
 					<!-- Content -->
-					<div class="small-4 columns item-block text-center" data-equalizer-watch>
-						<%= render :partial => "item_browse_info" %>
-					</div>
+					<%= link_to details_path(id: @item.id) do %>
+						<div class="small-4 columns item-block" data-equalizer-watch>
+							<%= render :partial => "item_browse_info" %>
+						</div>
+					<% end %>
 					<% itemCount += 1 %>
 				<% end %>
 

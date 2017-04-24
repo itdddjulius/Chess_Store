@@ -1,44 +1,31 @@
 <!-- This partial represents a single item info card -->
 
 <!-- image -->
-<div class="row">
-	<!-- variables -->
-	<% img = "#{@item.name}" %>
+<div class="row text-center">
 	<% options = {height: '150', width: '150', class: "item-image unselectable", alt: "No Image Available"} %>
+	<%= image_tag(getThumbnailPath(@item.name), options) %>
+</div>
 
-	<% if Rails.application.assets.find_asset "items/#{img}.png" %>
-		<%= image_tag("items/#{img}.png", options) %>
-	<% elsif Rails.application.assets.find_asset "items/#{img}.jpeg" %>
-		<%= image_tag("items/#{img}.jpeg", options) %>
-	<% else %>
-		<%= image_tag("items/no-image.jpeg", options) %>
-	<% end %>
-	
-</div>
-<!-- name -->
-<div class="row">
-	<%= @item.name %>
-</div>
 <!-- if active/available -->
 <% if @item.active %>
-	<!-- stock notification -->
-	<% if @item.reorder? %>
-		<div class="row">
-			<span class="red-text" style="font-weight: bold; font-size: 14px;">LOW STOCK</span>
-		</div>
-	<% end %>
 	<!-- Price -->
-	<div class="row">
-		<span style="font-weight: bold;">Price: </span>
+	<div style="font-weight: bold; font-size: 20px;">
 		<% if @item.current_price != nil %>
-			<%= sprintf "%.2f", @item.current_price %>
+			<%= sprintf "$%.2f", @item.current_price %>
 		<% else %>
-			<span style="font-style: italic">Not Set</span>
+			<span style="font-style: italic">Price Not Set</span>
 		<% end %>
 	</div>
+
+	<!-- stock notification -->
+	<% if @item.reorder? %>
+		<span class="red-text" style="font-weight: bold; font-size: 14px;">LOW STOCK</span><br/>
+	<% end %>
+	
 <!-- if inactive/unavailable -->
 <% else %>
-	<div class="row">
 		<span class="red-text" style="font-weight: bold; font-size: 14px;">NOT AVAILABLE</span>
-	</div>
 <% end %>
+
+<!-- name -->
+<%= @item.name %><br/>

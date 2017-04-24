@@ -25,7 +25,7 @@ class ItemsController < ApplicationController
 	end
 
 	def details
-		
+
 	end
 
 	def new

@@ -23,6 +23,12 @@
  body {
  	overflow: auto !important;
  }
+ body a {
+ 	
+ }
+ body a:hover {
+ 	color: #47576b;
+ }
 
  .margin-20-top {
  	margin-top: 20px !important;
@@ -78,7 +84,8 @@
  	color: black;
  }
 .grey-button:hover, .grey-button:focus {
-	background-color: #d6d8db; }
+	background-color: #d6d8db;
+	text-decoration: none !important; }
 .grey-button:hover, .grey-button:focus {
 	color: black; }
 
@@ -93,7 +100,8 @@
  	color: black;
 }
 .gold-button:hover, .gold-button:focus {
-	background-color: #e4bb59; }
+	background-color: #e4bb59;
+	text-decoration: none; }
 .gold-button:hover, .gold-button:focus {
 	color: black; }
 
@@ -235,6 +243,8 @@ overflow: hidden; }
 /* Item Browse List */
 .item-browse {
 	font-size: 15px;
+	position: relative;
+	top: -10px;
 }
 .item-row {
 	border-top: 1px solid #d7d7d7;
@@ -245,12 +255,12 @@ overflow: hidden; }
 	-webkit-transition: none; /* For Safari 3.1 to 6.0 */
 	transition: none;
 	padding-bottom: 10px;
+	color: black;
 }
 .item-block:hover {
 	border: 1px solid #a7a7a7;
 	border-radius: 10px;
 }
-
 .item-image {
 	border-bottom: 1px solid #d7d7d7;
 	margin-bottom: 10px;
@@ -291,13 +301,14 @@ overflow: hidden; }
 }
 
 #header {
-	margin-bottom: 20px;
+	
 }
 #content {
-	padding-bottom: 335px; /* Height of the footer element */
+	margin-top: 5px;
+	padding-bottom: 200px; /* Height of the footer element */
 }
 #content .row {
-	margin-top: 20px;
+	margin-bottom: 20px;
 }
 #footer {
 	width:100%;
@@ -337,8 +348,10 @@ header .header-bottom-half .nav-item-link:hover {
 	background-color: #232f3e;
 }
 
-header .items-search {
+header .item-search-wrapper {
 	padding-top: 10px;
+	position: relative;
+	right: 20px;
 }
 header .header-top-half .nav-search-button {
 	height: 37.2px;
@@ -419,7 +432,7 @@ footer .social-media-img:hover {
 	content: 'Too bad.';
 }
 
-#error_explanation {
+/*#error_explanation {
 	margin-top: 80px;
 	padding: 15px 20px;
 }
@@ -432,4 +445,4 @@ footer .social-media-img:hover {
 	margin-top: -20px !important;
 	padding-bottom: 3px !important;
 	z-index: -1 !important;
-}
+}*/
