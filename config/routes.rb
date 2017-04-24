@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'sandbox' => 'home#sandbox', as: :sandbox
 
   get 'browse' => 'items#browse', as: :browse
-
+  get 'details' => 'items#details', as: :details
   get 'user/edit' => 'users#edit', :as => :edit_current_user
   get 'signup' => 'users#new', :as => :signup
   get 'login' => 'sessions#new', :as => :login

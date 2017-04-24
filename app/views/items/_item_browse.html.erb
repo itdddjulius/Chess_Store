@@ -27,7 +27,7 @@
 <% else %>
 	<% idx = 0 %>
 	<% while idx < @items.length %>
-		<div class="row item-row">
+		<div class="row item-row" data-equalizer>
 			<!-- each row -->
 			<% itemCount = 0 %>
 			<% while itemCount < 3  && idx < @items.length %>
@@ -35,7 +35,7 @@
 				<% @item = @items[idx] %>
 				<% if @item != nil %>
 					<!-- Content -->
-					<div class="small-4 columns item-block text-center">
+					<div class="small-4 columns item-block text-center" data-equalizer-watch>
 						<%= render :partial => "item_browse_info" %>
 					</div>
 					<% itemCount += 1 %>

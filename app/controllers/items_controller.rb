@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   
 	PER_PAGE = 9
 
-	before_action :set_item, only: [:show, :edit, :update, :destroy]
+	before_action :set_item, only: [:show, :edit, :update, :destroy, :details]
 
 	def index
 		# get info on active items for the big three...
@@ -22,6 +22,10 @@ class ItemsController < ApplicationController
 		@price_history = @item.item_prices.chronological.to_a
 		# everyone sees similar items in the sidebar
 		@similar_items = Item.for_category(@item.category).active.alphabetical.to_a - [@item]
+	end
+
+	def details
+		
 	end
 
 	def new

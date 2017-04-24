@@ -22,7 +22,7 @@
 
 					<script type="text/javascript" charset="utf-8">
 						$('#term').bind('railsAutocomplete.select', function(event, data){
-							window.location.replace("/items/" + data.item.id);
+							window.location.replace("/details?id=" + data.item.id);
 						});
 					</script>
 				</div>

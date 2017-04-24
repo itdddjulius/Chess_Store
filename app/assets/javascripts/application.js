@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require jquery-ui/widgets/autocomplete
 //= require autocomplete-rails
-//= require foundation.min
+//= require foundation
 //= require_tree .

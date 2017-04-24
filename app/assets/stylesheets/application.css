@@ -23,6 +23,11 @@
  body {
  	overflow: auto !important;
  }
+
+ .margin-20-top {
+ 	margin-top: 20px !important;
+ }
+
  .container {
  	width: 75% !important;
  }
@@ -237,6 +242,13 @@ overflow: hidden; }
 }
 
 .item-block {
+	-webkit-transition: none; /* For Safari 3.1 to 6.0 */
+	transition: none;
+	padding-bottom: 10px;
+}
+.item-block:hover {
+	border: 1px solid #a7a7a7;
+	border-radius: 10px;
 }
 
 .item-image {
@@ -283,6 +295,9 @@ overflow: hidden; }
 }
 #content {
 	padding-bottom: 335px; /* Height of the footer element */
+}
+#content .row {
+	margin-top: 20px;
 }
 #footer {
 	width:100%;
