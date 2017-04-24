@@ -135,7 +135,6 @@ GEM
       launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    magnifier-rails (0.0.3)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     meta_request (0.4.0)
@@ -286,7 +285,6 @@ DEPENDENCIES
   jquery-ui-rails
   launchy
   letter_opener
-  magnifier-rails
   meta_request
   minitest
   minitest-rails
