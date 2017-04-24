@@ -9,6 +9,8 @@
 			<div class="small-6 columns">
 				<div class="item-search-wrapper row">
 					<%= form_tag(browse_path, :method => "get", id: "search-form") do %>
+							<!-- Keep the sort param -->
+							<%= hidden_field_tag :sort, params[:sort] %>
 							<div class="small-10 columns">
 								<!-- text field tag=action,args,identifier,placeholdertext... -->
 								<%= text_field_tag :term, params[:term], class: "form-field", placeholder: "Search for an item...", type: "search", data: {autocomplete: items_autocomplete_item_name_path } %>
