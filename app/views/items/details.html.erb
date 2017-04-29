@@ -1,9 +1,3 @@
-Price
-Possibly previous price
-All colors
-Description
-People also bought
-
 <div class="row">
 	<!-- Basic Item Information -->
 	<div class="small-7 columns">
@@ -13,25 +7,24 @@ People also bought
 		<!-- Image -->
 		<% options = {height: '240', width: '240', class: "item-image unselectable text-center", alt: "No Image Available"} %>
 		<%= image_tag(getImagePath(@item.name), options) %>
-		<hr class="grey-line"/>
-		<div style="padding-right: 20px; padding-left: 20px;">
-			<div class="section-label">
+
+		<div style="padding-right: 20px; padding-left: 20px; margin-top: 50px;">
+			<div class="section-label dark-grey-text">
 				PRODUCT DETAIL
 			</div><br/>
 			<%= @item.description %><br/><br/>
 		</div>
-		<hr class="grey-line"/>
 		<!-- color, weight -->
 		<div style="padding-right: 20px; padding-left: 20px;">
 			<ul class="small-block-grid-3">
 				<li>
-					<div class="section-label">
+					<div class="section-label dark-grey-text">
 						COLOR
 					</div>
 					<%= @item.color %>
 				</li>
 				<li>
-					<div class="section-label">
+					<div class="section-label dark-grey-text">
 						WEIGHT
 					</div>
 					<%= @item.weight %> lbs
@@ -54,14 +47,49 @@ People also bought
 			<span class="section-label">PRICE</span><br/>
 			<h2><%= @current_price %></h2>
 		<% end %>
+		<!-- "Only XX left in stock" -->
+		<% if @item != nil && @item.inventory_level != 0 && @item.reorder? %>
+			<div class="red-text">
+				Only <%= @item.inventory_level %> left in stock. Order soon.
+			</div>
+		<% end %>
+		<!-- Adding to the cart -->
+		<div class="section unselectable" style="margin-top: 30px;">
+			<% if !@item.active %>
+				<h4 style="">This item is not active.</h4>
+			<% elsif @item.inventory_level == 0 %>
+				<h4 style="">This item is out of stock.</h4>
+			<% else %>
+				<form>
+					<label class="section-label" style="font-size: 15px;">Qty.</label>
+					<select name="quantity" id="quantity" class="form-field" style="max-width: 50px;">
+						<% 10.times do |n| %>
+							<option value=<%= n+1 %> ><%= n+1 %></option>
+						<% end %>
+					</select>
+					<hr class="grey-line" style="margin-top: 30px;"/>
+					<%= button_tag(type: "submit", class: "gold-button full-width") do %>
+							Add to Cart
+					<% end %>
+				</form>
+			<% end %>
+		</div>
 	</div>
 </div>
 <!-- Extra Information -->
 <!-- Customers also bought... -->
-<div class="row">
-	<ul class="example-orbit" data-orbit>
-	<% for item in @other_bought_items %>
-		
-	<% end %>
+<% if @other_bought_items.any? %>
+<hr class="grey-line"/>
+<h4 style="padding-bottom: 10px;">Customers Also Bought</h4>
+	<ul class="small-block-grid-5 item-browse-list">
+		<% for @item in @other_bought_items %>
+			<li>
+				<%= link_to details_path(id: @item.id) do %>
+					<div class="item-block">
+						<%= render :partial => "item_browse_info" %>
+					</div>
+				<% end %>
+			</li>
+		<% end %>
 	</ul>
-</div>
+<% end %>
