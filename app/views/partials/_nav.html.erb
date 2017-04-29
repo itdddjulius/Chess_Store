@@ -11,6 +11,8 @@
 					<%= form_tag(browse_path, :method => "get", id: "search-form") do %>
 							<!-- Keep the sort param -->
 							<%= hidden_field_tag :sort, params[:sort] %>
+							<%= hidden_field_tag :perpage, params[:perpage] %>
+							<%= hidden_field_tag :perrow, params[:perrow] %>
 							<div class="small-10 columns">
 								<!-- text field tag=action,args,identifier,placeholdertext... -->
 								<%= text_field_tag :term, params[:term], class: "form-field", placeholder: "Search for an item...", type: "search", data: {autocomplete: items_autocomplete_item_name_path } %>
