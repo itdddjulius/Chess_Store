@@ -1,54 +1,109 @@
 <!-- This partial represents a paginated items list for browsing-->
     
-<div class="item-browse">
+<div class="item-browse" style="min-height: 500px;"">
 
 <!--  Top of page pagination -->
 <div class="row">
-	<div class="small-6 columns" style="color: #a7a7a7; position: relative; top: 30px;">
-		<%= getBrowseState() %>
+	<div class="small-6 columns" style="color: #a7a7a7; position: relative;">
+		<form class="item-browse-controls style="position: relative; top: 15px;">
+			<% if params[:category] != nil && params[:category] != nil %>
+				<% if params[:category].kind_of? Array %>
+					<% for c in params[:category] %>
+						<%= hidden_field_tag "category[]", c %>
+					<% end %>
+				<% else %>
+					<%= hidden_field_tag "category[]", params[:category] %>
+				<% end %>
+			<% end %>
+			<%= hidden_field_tag :term, params[:term] %>
+			<%= hidden_field_tag :color, params[:color] %>
+			<div class="small-6 columns" style="position: relative;">
+				<label class="section-label" style="font-size: 10px;">SORT BY</label>
+				<select name="sort" id="sort" style="max-width: 200px;" class="auto-submit-field form-field">
+					<option value="alphabetical" <%= 'selected' if [nil, 0, ""].include?(params[:sort]) || params[:sort] == "alphabetical" %>>Alphabetical</option>
+					<option value="pricehigh" <%= 'selected' if params[:sort] == "pricehigh" %>>Price (High - Low)</option>
+					<option value="pricelow" <%= 'selected' if params[:sort] == "pricelow" %>>Price (Low - High)</option>
+				</select>
+			</div>
+			<div class="small-3 columns" style="position: relative; right: 10px;">
+				<label class="section-label" style="font-size: 10px;">PER ROW</label>
+				<select name="perrow" id="perrow" style="max-width: 40px;" class="auto-submit-field-perrow form-field">
+					<option value=3 <%= 'selected' if [nil, 0, ""].include?(params[:perrow]) || params[:perrow] == "3" %>>3</option>
+					<option value=4 <%= 'selected' if params[:perrow] == "4" %>>4</option>
+				</select>
+			</div>
+			<div class="small-3 columns" style="position: relative; right: 40px">
+				<label class="section-label" style="font-size: 10px;">PER PAGE</label>
+				<% if [nil, 0, ""].include?(params[:perrow]) || params[:perrow] == "3" %>
+					<select name="perpage" id="perpage" style="width: 45px;" class="auto-submit-field-perpage form-field">
+						<option value=6 <%= 'selected' if params[:perpage] == "6" %>>6</option>
+						<option value=9 <%= 'selected' if [nil, 0, ""].include?(params[:perpage]) || params[:perpage] == "9" %>>9</option>
+						<option value=12 <%= 'selected' if params[:perpage] == "12" %>>12</option>
+					</select>
+				<% elsif params[:perrow] == "4" %>
+					<select name="perpage" id="perpage" style="width: 45px;" class="auto-submit-field-perpage form-field">
+						<option value=8 <%= 'selected' if params[:perpage] == "8" %>>8</option>
+						<option value=12 <%= 'selected' if [nil, 0, ""].include?(params[:perpage]) || params[:perpage] == "12" %>>12</option>
+						<option value=16 <%= 'selected' if params[:perpage] == "16" %>>16</option>
+					</select>
+				<% end %>
+			</div>
+		</form>
+		<script>
+			function deactivateList() {
+				$(".item-browse-list").css("opacity", 0.2);
+				// $(".item-browse-list").css("pointer-events", none);
+			}
+
+			$(function() {
+				$(".auto-submit-field").change(function() {
+					deactivateList();
+					$(this).parents("form").submit()
+				});
+			});
+
+			$(function() {
+				$(".auto-submit-field-perpage").change(function() {
+					deactivateList();
+					$(this).parents("form").submit()
+				});
+			});
+
+			$(function() {
+				$(".auto-submit-field-perrow").change(function() {
+					if ($(this).val() == "4" ) {
+						$(".auto-submit-field-perpage").val("12");
+					}
+					if ($(this).val() == "3") {
+						$(".auto-submit-field-perpage").val("9");
+					}
+					deactivateList();
+					$(this).parents("form").submit()
+				});
+			});
+		</script>
 	</div>
-	<div class="small-6 columns">
-		<div class="item-pagination unselectable" style="float: right;">
+	<div class="small-6 columns" style="max-height:100px;">
+		<div class="item-pagination unselectable row" style="float: right;">
+			<span class="grey-text" style="position: relative; bottom: 10px; background-color: #fff;"><%= getBrowseState() %></span>
 			<%= will_paginate @items %>
 		</div>
 	</div>
 </div>
 
-
 <!-- Item display grid -->
 
-<!-- all items -->
-<!-- if there is nothing to show -->
-<% if @items == nil || @items.empty? %>
-	<div class="row item-row text-center" style="font-size: 20; font-weight: bold">
-		There are no items to be shown.
-	</div>
-<!-- There is something to show -->
-<% else %>
-	<% idx = 0 %>
-	<% while idx < @items.length %>
-		<div class="row item-row" data-equalizer>
-			<!-- each row -->
-			<% itemCount = 0 %>
-			<% while itemCount < 3  && idx < @items.length %>
-				<!-- each item -->
-				<% @item = @items[idx] %>
-				<% if @item != nil %>
-					<!-- Content -->
-					<%= link_to details_path(id: @item.id) do %>
-						<div class="small-4 columns item-block" data-equalizer-watch>
-							<%= render :partial => "item_browse_info" %>
-						</div>
-					<% end %>
-					<% itemCount += 1 %>
-				<% end %>
-
-				<% idx += 1 %>
+<ul class="small-block-grid-<%= [nil, 0, ""].include?(params[:perrow]) ? 3 : Integer(params[:perrow]) %> item-browse-list">
+	<% for @item in @items %>
+		<li>
+			<%= link_to details_path(id: @item.id) do %>
+				<div class="item-block">
+					<%= render :partial => "item_browse_info" %>
+				</div>
 			<% end %>
-		</div>
+		</li>
 	<% end %>
-<% end %>
-
+</ul>
 
 <!--  Bottom of page pagination -->
 <div class="row">

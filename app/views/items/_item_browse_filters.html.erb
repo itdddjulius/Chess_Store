@@ -1,0 +1,52 @@
+<form id="item-browse-filters" class="unselectable">
+	<!-- Keep these params -->
+	<!-- Keep the search param -->
+	<%= hidden_field_tag :term, params[:term] %>
+	<%= hidden_field_tag :sort, params[:sort] %>
+	<%= hidden_field_tag :perrow, params[:perrow] %>
+	<%= hidden_field_tag :perpage, params[:perpage] %>
+	<!-- rest of things -->
+	<div class="row">
+		<label style="color: #999999;">REFINE BY</label>
+	</div>
+
+	<!-- Categories -->
+	<div class="row">
+		<label class="section-label">CATEGORIES</label>
+		<div class="item-browse-filters-section">
+			<% if !params.has_key?(:category) %>
+				<input id="checkbox1" type="checkbox" name="category[]" value="boards" checked><label for="checkbox1">Boards</label><br/>
+				<input id="checkbox2" type="checkbox" name="category[]" value="pieces" checked><label for="checkbox2">Pieces</label><br/>
+				<input id="checkbox3" type="checkbox" name="category[]" value="clocks" checked><label for="checkbox3">Clocks</label><br/>
+				<input id="checkbox4" type="checkbox" name="category[]" value="supplies" checked><label for="checkbox4">Supplies</label>
+			<% else %>
+				<% if params[:category].include?("boards") %>
+					<input id="checkbox1" type="checkbox" name="category[]" value="boards" checked><label for="checkbox1">Boards</label><br/>
+				<% else %>
+					<input id="checkbox1" type="checkbox" name="category[]" value="boards"><label for="checkbox1">Boards</label><br/>
+				<% end %>
+				<% if params[:category].include?("pieces") %>
+					<input id="checkbox2" type="checkbox" name="category[]" value="pieces" checked><label for="checkbox2">Pieces</label><br/>
+				<% else %>
+					<input id="checkbox2" type="checkbox" name="category[]" value="pieces"><label for="checkbox2">Pieces</label><br/>
+				<% end %>
+				<% if params[:category].include?("clocks") %>
+					<input id="checkbox3" type="checkbox" name="category[]" value="clocks" checked><label for="checkbox3">Clocks</label><br/>
+				<% else %>
+					<input id="checkbox3" type="checkbox" name="category[]" value="clocks"><label for="checkbox3">Clocks</label><br/>
+				<% end %>
+				<% if params[:category].include?("supplies") %>
+					<input id="checkbox4" type="checkbox" name="category[]" value="supplies" checked><label for="checkbox4">Supplies</label>
+				<% else %>
+					<input id="checkbox4" type="checkbox" name="category[]" value="supplies"><label for="checkbox4">Supplies</label>
+				<% end %>
+
+			<% end %>
+		</div>
+	</div>
+
+	<div class="row text-center">
+		<!-- <input type="submit" value="Filter" class="grey-button"> -->
+		<button type="submit" class="grey-button" form="item-browse-filters">Filter</button>
+	</div>
+</form>

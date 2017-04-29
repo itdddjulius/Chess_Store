@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="small-2 columns" style="position: relative;">
-		<%= render :partial => "item_browse_controls" %>
+		<%= render :partial => "item_browse_filters" %>
 	</div>
 	<div class="small-10 columns">
 		<div>
@@ -10,12 +10,12 @@
 </div>
 <script>
 	function checkControlsOffset() {
-		height = $('#item-browse-control').offset().top + $('#item-browse-control').height();
+		height = $('#item-browse-filters').offset().top + $('#item-browse-filters').height();
 		otherHeight = $(document).scrollTop() + window.innerHeight - $('#footer').height() + 10;
 		if( height >= $('#footer').offset().top)
-			$('#item-browse-control').css('position', 'absolute');
+			$('#item-browse-filters').css('position', 'absolute');
 		if( otherHeight < $('#footer').offset().top )
-			$('#item-browse-control').css('position', 'fixed'); // restore when you scroll up
+			$('#item-browse-filters').css('position', 'fixed'); // restore when you scroll up
 	}
 
 	$(document).scroll(function() {
