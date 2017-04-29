@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
 		@current_price = @item.current_price != nil ? sprintf("$%.2f", @item.current_price) : nil
 		# Other bought items
 		@other_bought_items = @item.orders.all.to_a.map { |o| o.items.all.to_a }
-		@other_bought_items = @other_bought_items.flatten.uniq
+		@other_bought_items = @other_bought_items.flatten.uniq - [@item]
 		#@other_colors = 
 	end
 
@@ -68,26 +68,34 @@ class ItemsController < ApplicationController
 		@items = Item.active
 
 		# Name Query
-		if params.has_key?(:term)
+		if params.has_key?(:term) && params[:term] != ""
 			@items = itemsForName(@items, params[:term])
 		end
 
 
 		# Categories
-		if params.has_key?(:category)
+		if params.has_key?(:category) && params[:category] != ""
 			@items = itemsForCategories(@items, params[:category])
 		end
 
 		# Sort
 		@items = @items.to_a
-		if params.has_key?(:sort)
+		if params.has_key?(:sort) && params[:sort] != ""
 			@items = itemsSorted(@items, params[:sort])
 		else
 			@items.sort_by! { |item| item.name }
 		end
 
 		# Paginating
-		@items = @items.paginate(:page => params[:page], :per_page => PER_PAGE)
+		if [nil, 0, ""].include?(params[:perpage])
+			if [nil, 0, ""].include?(params[:perrow]) || Integer(params[:perrow]) == 3
+				@items = @items.paginate(:page => params[:page], :per_page => 9)
+			elsif Integer(params[:perrow]) == 4
+				@items = @items.paginate(:page => params[:page], :per_page => 12)
+			end
+		else
+			@items = @items.paginate(:page => params[:page], :per_page => Integer(params[:perpage]) )
+		end
 	end
 
 	private
