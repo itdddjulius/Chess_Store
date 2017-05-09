@@ -1,0 +1,96 @@
+<div id="detailed-order-list">
+	<div class="row">
+		<div class="small-2 columns">
+			<span class="section-label">Date</span>
+		</div>
+		<div class="small-5 columns">
+			<span class="section-label">Address</span>
+		</div>
+		<span class="small-1 columns">&nbsp;</span>
+		<div class="small-1 columns">
+			<span class="section-label">Total</span>
+		</div>
+		<div class="small-1 columns">
+			<span class="section-label">Paid</span>
+		</div>
+		<span class="small-2 columns">&nbsp;</span>
+	</div>
+	<hr class="grey-line"/>
+	<!-- List of Orders -->
+	<% if @orders == nil || @orders.empty? %>
+		<div class="row">
+			There are no orders to show.
+		</div>
+	<% else %>
+		<ul class="accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true">
+			<% for order in @orders %>
+				<li id="order-<%= order.id %>-row">
+					<div class="row">
+						<div class="small-2 columns">
+							<%= order.date %>
+						</div>
+						<div class="small-5 columns" style="position: relative; bottom: 10px;">
+							<small>
+								<% s = order.school %>
+								<%= s.name %><br/>
+								<%= "#{s.street_1}, #{s.city}, #{s.state} #{s.zip}" %>
+							</small>
+						</div>
+						<span class="small-1 columns">&nbsp;</span>
+						<div class="small-1 columns">
+							<%= sprintf("%.2f", order.grand_total) %>
+						</div>
+						<div class="small-1 columns" style="position: relative; left: 8px;">
+							<% if order.payment_receipt != nil %>
+								<%= image_tag("check_green.gif") %>
+							<% else %>
+								<%= image_tag("remove.png") %>
+							<% end %>
+						</div>
+						<div class="small-2 columns">
+							<% if get_cancellable(order) %>
+								<%= form_tag orders_cancel_path(format: :js), method: 'get', remote: true do %>
+									<%= hidden_field_tag 'order_id', order.id %>
+									<button type=submit class="gold-button" style="position:relative; bottom: 5px;font-size: 12px;">
+										Cancel Order
+									</button>
+								<% end %>
+							<% else %>
+								&nbsp;
+							<% end %>
+						</div>
+					</div>
+					<!-- Little Order Item Panels -->
+					<% for oi in order.order_items %>
+						<% options = {height: '50', width: '50', class: "unselectable", alt: "No Image Available"} %>
+						<div id="oi-<%= oi.id %>-row" class="row" style="margin-bottom: 0px;">
+							<div class="small-6 small-offset-1 columns">
+								<div class="row" style="border-top: 1px solid #d6d8db; padding: 5px 0; margin-bottom: 0px;" data-equalizer>
+									<div class="small-6 columns">
+										<%= image_tag(getThumbnailPath(oi.item.name), options) %>
+										&nbsp;✖&nbsp;<%= oi.quantity %>
+										&nbsp;&nbsp;=&nbsp;&nbsp;<%= sprintf("%.2f", oi.quantity * oi.item.current_price) %>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</div>
+									<div class="small-6 columns" style="position: relative; top: 10px;">
+										<% if oi.shipped_on != nil %>
+											<span class="section-label" style="font-size: 12px; color: green;">Shipped on <%= oi.shipped_on %></span>
+										<% elsif oi.shipped_on == nil && current_user.role == 'shipper' || current_user.role == 'admin' %>
+											<%= form_tag order_items_ship_item_path(format: :js), method: 'get', remote: true do %>
+												<%= hidden_field_tag 'order_item_id', oi.id %>
+												<button type=submit class="grey-button" style="font-size: 12px;">
+													Ship Me
+												</button>
+											<% end %>
+										<% end %>
+									</div>
+								</div>
+							</div>
+						</div>
+					<% end %>
+<!-- 					<hr class="grey-line"/> -->
+				</li>
+			</ul>
+		<% end %>
+	<% end %>
+</div>
