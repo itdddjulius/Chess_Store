@@ -1,28 +1,18 @@
-<!-- Slideshow, Newest Item, Recently Reduced Item -->
-<div class="row">
-	<div class="small-8 columns">
-		
+<% if !logged_in? || current_user.role == 'customer' %>
+	<%= image_tag("home.png") %>
+<% elsif current_user.role == 'admin' %>
+	<%= render :partial => 'reorder_list' %>
+<% elsif current_user.role == 'manager' %>
+	<%= render :partial => 'reorder_list' %>
+<% elsif current_user.role == 'shipper' %>
+	<div class="large-basic-container">
+		<h4 style="margin-bottom: 20px;">
+			Unshipped Orders
+		</h4>
+		<%= render 'orders/detailed_order_list' %>
 	</div>
-	<!-- Interesting items -->
-	<div class="small-4 columns">
+<% end %>
 
-	</div>
-</div>
-
-<!-- Category Icons and Links -->
-<div class="row">
-
-</div>
-
-<!-- Interesting Items -->
-<!-- Most Popular Items -->
-<div class="row">
-
-</div>
-<!-- Discounted Items -->
-<div class="row">
-
-</div>
 <% if flash[:welcome] %>
 	<div class="reveal" id="welcome" data-reveal data-close-on-click="true" data-animation-in="slide-in-down" data-animation-out="slide-out-up">
 		<h3>Welcome to the A&M Chess Store!</h3>

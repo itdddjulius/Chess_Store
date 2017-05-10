@@ -103,6 +103,7 @@ class OrdersController < ApplicationController
 
 		@order.user = current_user
 		if @order.save
+			@order.pay
 			save_each_item_in_cart(@order)
 			clear_cart
 			redirect_to orders_list_path, notice: "Successfully placed your order."

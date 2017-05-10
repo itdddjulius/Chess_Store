@@ -58,6 +58,10 @@ class UsersController < ApplicationController
 
 	private
 	def can_edit
+		if @user == nil
+			@user = User.find_by_id params[:id]
+		end
+		
 		if current_user.role == 'admin'
 			return true
 		elsif current_user.role == 'manager' && @user.role == 'shipper'

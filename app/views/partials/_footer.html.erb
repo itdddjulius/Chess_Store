@@ -7,16 +7,15 @@
 				<span class="section-label">QUESTIONS?</span><br/>
 				<%= link_to 'Help', contact_path %><br/>
 				<%= mail_to("fliao@andrew.cmu.edu", "Contact", encode: "javascript") %><br/>
-				Track Order<br/>
-				Delivery<br/>
-				Return Policy
+				<span class="grey-text">Delivery</span><br/>
+				<span class="grey-text">Return Policy</span>
 			</div>
 			<!-- Account -->
 			<div class="small-2 columns">
 				<span class="section-label">YOUR INFO</span><br/>
-				Your Account<br/>
-				Your Orders<br/>
-				Your Cart</br>
+				<%= link_to 'Your Account', (logged_in? ? user_path(current_user.id) : login_path) %><br/>
+				<%= link_to 'Your Orders', (logged_in? ? orders_list_path : login_path) %><br/>
+				<%= link_to 'Your Cart', (logged_in? ? cart_path : login_path) %></br>
 			</div>
 			<!-- What's In Store -->
 			<div class="small-2 columns">

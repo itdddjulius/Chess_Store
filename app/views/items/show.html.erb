@@ -3,7 +3,9 @@
 	<%= render :partial => "item_details" %>
   </div>
   <div class="small-5 columns">
+  	<% if ['admin', 'manager'].include?(current_user.role) %>
 	<%= render :partial => "price_history" unless @price_history.empty?%>
+	<% end %>
 	<%= render :partial => "similar_items" unless @similar_items.empty?%>
   </div>
 </div>
