@@ -1,3 +1,25 @@
-<h3>Update Profile</h3>
 
-<%= render 'form' %>
+	<div class="small-6 small-offset-3 columns">
+		<% if current_user.id == @user.id %>
+			<h3>Update Your Profile</h3>
+		<% else %>
+			<h3>Update <%= @user.proper_name %>'s Profile</h3>
+		<% end %>
+		<%= render 'form' %>
+	</div>
+
+	<div class="small-3 columns">
+		<% if @user.errors.any? %>
+			<div id="error_explanation" class="orange-border">
+				<div style="color: #e77600; margin-bottom: 10px; font-style: bold !important;">
+					<%= pluralize(@user.errors.count, "fix") %> needs to be made:
+				</div>
+
+				<ul style="font-size: 12px;">
+					<% @user.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+	</div>

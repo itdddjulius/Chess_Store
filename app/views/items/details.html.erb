@@ -16,20 +16,20 @@
 		</div>
 		<!-- color, weight -->
 		<div style="padding-right: 20px; padding-left: 20px;">
-			<ul class="small-block-grid-3">
-				<li>
+			<div class="row small-up-3">
+				<div class="column column-block">
 					<div class="section-label dark-grey-text">
 						COLOR
 					</div>
 					<%= @item.color %>
-				</li>
-				<li>
+				</div>
+				<div class="column column-block">
 					<div class="section-label dark-grey-text">
 						WEIGHT
 					</div>
 					<%= @item.weight %> lbs
-				</li>
-			</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- Item Actions i.e. add to cart -->
@@ -60,7 +60,9 @@
 			<% elsif @item.inventory_level == 0 %>
 				<h4 style="">This item is out of stock.</h4>
 			<% else %>
-				<form>
+			
+				<%= form_tag cart_add_path(format: :js), method: 'get', remote: true do %>
+					<%= hidden_field_tag 'item_id', @item.id %>
 					<label class="section-label" style="font-size: 15px;">Qty.</label>
 					<select name="quantity" id="quantity" class="form-field" style="max-width: 50px;">
 						<% 10.times do |n| %>
@@ -71,25 +73,50 @@
 					<%= button_tag(type: "submit", class: "gold-button full-width") do %>
 							Add to Cart
 					<% end %>
-				</form>
+				<% end #form end %>
+
 			<% end %>
 		</div>
 	</div>
 </div>
+
+<!-- Successfully added to cart modal -->
+<div class="reveal" id="item-modal" data-reveal>
+	<h3>Successfully added <span id="modal-quantity"></span> to cart</h3>
+	<div class="row" style="margin-top: 15px;">
+		<div class="small-6 columns">
+			<%= image_tag(getImagePath(@item.name)) %>
+		</div>
+		<div class="small-6 columns">
+			 Price: <%= @item.current_price != nil ? sprintf("%.2f", @item.current_price) : nil %><br/>
+			 Total Qty: <span id="modal-total-quantity"></span>
+			 <hr class="grey-line"/>
+			 Total: <span id="modal-total-cost"></span>
+			 <%= link_to cart_path do %>
+			 	<div class="grey-button text-center full-width" style="margin-top: 40px;">
+			 		Go to Cart
+			 	</div>
+			 <% end %>
+		</div>
+	</div>
+	<button class="close-button" data-close aria-label="Close reveal" type="button">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+
 <!-- Extra Information -->
 <!-- Customers also bought... -->
 <% if @other_bought_items.any? %>
 <hr class="grey-line"/>
 <h4 style="padding-bottom: 10px;">Customers Also Bought</h4>
-	<ul class="small-block-grid-5 item-browse-list">
+	<div class="row small-up-5">
 		<% for @item in @other_bought_items %>
-			<li>
+			<div class="column column-block">
 				<%= link_to details_path(id: @item.id) do %>
-					<div class="item-block">
-						<%= render :partial => "item_browse_info" %>
-					</div>
+					<%= render :partial => "item_browse_info" %>
 				<% end %>
-			</li>
+			</div>
 		<% end %>
-	</ul>
+	</div>
 <% end %>

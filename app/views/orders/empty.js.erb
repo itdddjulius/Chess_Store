@@ -1,0 +1,22 @@
+// Update the cart icon and count
+var val = 1.5;
+$('.user-action.cart').css({
+	'-webkit-transform': 'scale(' + val + ')',
+	'-moz-transform': 'scale(' + val + ')',
+	'-ms-transform': 'scale(' + val + ')',
+	'-o-transform': 'scale(' + val + ')',
+	'transform': 'scale(' + val + ')'
+});
+
+$( ".cart-count" ).replaceWith( "<span class='cart-count'><%= cart_count %></span>" );
+
+val = 1;
+setTimeout(function(){
+	$('.user-action.cart').css({
+		'-webkit-transform': 'scale(' + val + ')',
+		'-moz-transform': 'scale(' + val + ')',
+		'-ms-transform': 'scale(' + val + ')',
+		'-o-transform': 'scale(' + val + ')',
+		'transform': 'scale(' + val + ')'
+	});
+}, 1000);

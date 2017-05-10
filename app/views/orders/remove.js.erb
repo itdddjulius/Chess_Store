@@ -1,0 +1,44 @@
+// Update the cart icon and count
+var val = 1.5;
+$('.user-action.cart').css({
+	'-webkit-transform': 'scale(' + val + ')',
+	'-moz-transform': 'scale(' + val + ')',
+	'-ms-transform': 'scale(' + val + ')',
+	'-o-transform': 'scale(' + val + ')',
+	'transform': 'scale(' + val + ')'
+});
+
+$( ".cart-count" ).replaceWith( "<span class='cart-count'><%= cart_count %></span>" );
+
+val = 1;
+setTimeout(function(){
+	$('.user-action.cart').css({
+		'-webkit-transform': 'scale(' + val + ')',
+		'-moz-transform': 'scale(' + val + ')',
+		'-ms-transform': 'scale(' + val + ')',
+		'-o-transform': 'scale(' + val + ')',
+		'transform': 'scale(' + val + ')'
+	});
+}, 1000);
+
+// remove the item-panel block
+$('#cart-item-panel-<%= @item_id %>').remove();
+
+//redo cart-info and animate changes
+$('#cart-info').replaceWith('<%= j render "cart_info" %>')
+setTimeout(function(){
+	$('#cart-info .cart-total').css("font-size", "inherit");
+	$('#cart-info .cart-subtotal').css("font-size", "inherit");
+	$('#cart-info .cart-shipping').css("font-size", "inherit");
+}, 1000);
+
+$('#cart-info').ready(function() {
+	$('#cart-info .cart-total').css("font-size", "20px");
+	$('#cart-info .cart-subtotal').css("font-size", "20px");
+	$('#cart-info .cart-shipping').css("font-size", "20px");
+});
+
+// if there are no items
+<% if cart_count == 0 %>
+	$('#cart-items').replaceWith("<div id='cart-items'>Your cart is empty.</div>")
+<% end %>

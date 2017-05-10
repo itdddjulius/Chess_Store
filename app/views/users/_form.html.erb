@@ -50,9 +50,9 @@
 		</div>
 </div>
 		<div class="row" style="margin-top: 30px;">
-			<div class="small-8 small-offset-2 columns">
+			<div class="small-6 small-offset-3 columns">
 				<%= button_tag(type: "submit", class: "gold-button full-width") do %>
-					Sign Up
+					<%= action_name == 'new' ? 'Sign Up' : 'Update Profile' %>
 				<% end %>
 			</div>
 		</div>		

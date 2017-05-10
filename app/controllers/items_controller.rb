@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
 	helper ItemsHelper
-	autocomplete :item, :name, :full => true
+	include ChessStoreHelpers::Cart
+ 
+	autocomplete :item, :name, :full => true, :scopes => [:active]
 	before_action :check_login, only: [:index, :show, :new, :edit, :create, :update, :destroy]
   
 	PER_PAGE = 9
@@ -19,7 +21,8 @@ class ItemsController < ApplicationController
 
 	def show
 		# get the price history for this item
-		@price_history = @item.item_prices.chronological.to_a
+		@price_history = @item.item_prices.wholesale.chronological.to_a.take(8)
+		@price_history_m = @item.item_prices.manufacturer.chronological.to_a.take(8)
 		# everyone sees similar items in the sidebar
 		@similar_items = Item.for_category(@item.category).active.alphabetical.to_a - [@item]
 	end
@@ -30,8 +33,8 @@ class ItemsController < ApplicationController
 		@current_price = @item.current_price != nil ? sprintf("$%.2f", @item.current_price) : nil
 		# Other bought items
 		@other_bought_items = @item.orders.all.to_a.map { |o| o.items.all.to_a }
-		@other_bought_items = @other_bought_items.flatten.uniq - [@item]
-		#@other_colors = 
+		@other_bought_items = (@other_bought_items.flatten.uniq - [@item]).take(5)
+		# @other_colors = 
 	end
 
 	def new
@@ -99,6 +102,7 @@ class ItemsController < ApplicationController
 	end
 
 	private
+	
 	def set_item
 		@item = Item.find(params[:id])
 	end

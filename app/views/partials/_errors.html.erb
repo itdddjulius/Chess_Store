@@ -1,0 +1,13 @@
+<% if @user.errors.any? %>
+	<div id="error_explanation" class="orange-border">
+		<div style="color: #e77600; margin-bottom: 10px; font-style: bold !important;">
+			<%= pluralize(@user.errors.count, "fix") %> needs to be made:
+		</div>
+
+		<ul style="font-size: 12px;">
+			<% @user.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

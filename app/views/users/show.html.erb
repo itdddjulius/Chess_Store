@@ -1,0 +1,54 @@
+<div class="small-6 small-offset-3 columns">
+	<%= render 'partials/errors' %>
+	<% if current_user.id == @user.id %>
+		<h3>Your Profile</h3>
+	<% else %>
+		<h3><%= @user.proper_name %>'s Profile</h3>
+	<% end %>
+
+	<div id="user-info">
+		<div class="grey-border">
+			<div class="row" style="margin-top: 10px;">
+				<div class="small-6 columns">
+					<h5>First Name</h5>
+					<%= @user.first_name ? @user.first_name : 'N/A' %>
+				</div>
+				<div class="small-6 columns">
+					<h5>Last Name</h5>
+					<%= @user.last_name ? @user.last_name : 'N/A' %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-8 columns">
+					<h5>Email Address</h5>
+					<%= @user.email ? @user.email : 'N/A' %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-8 columns">
+					<h5>Phone No.</h5>
+					<%= (@user.phone && @user.phone != "") ? @user.phone : 'N/A' %>
+				</div>
+			</div>
+			<hr class="grey-line margin-20-top"/>
+			<div class="row">
+				<div class="small-8 columns">
+					<h5>Username</h5>
+					<%= @user.username ? @user.username : 'N/A'  %>
+				</div>
+			</div>
+			
+		</div>
+		<% if can_edit %>
+			<div class="row">
+				<div class="small-6 small-offset-3 columns">
+					<%= link_to edit_user_path(@user.id) do %>
+						<button id="update-link" class="gold-button full-width">
+							Update Profile
+						</button>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

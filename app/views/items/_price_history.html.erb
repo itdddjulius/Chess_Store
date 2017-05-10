@@ -1,12 +1,31 @@
+<div id="price-history">
 <% unless @price_history.empty? %>
-  <div class="panel clearfix">
-    <h3>Price History</h3>
-    <ul>
-      <% @price_history.each do |change| %>
-        <%= number_to_currency change.price %>&nbsp;&nbsp;&nbsp;(<%= change.start_date.strftime('%m/%d/%y') %>)<br />
-      <% end %>
-    </ul>
-
-    <%= link_to("Change Price", new_item_price_path(this_item_id: @item.id), class: 'button tiny radius') %>
-  </div>
+	<div class="panel clearfix">
+		<h3>Price History</h3>
+		<div class="row">
+			<div class="small-6 columns">
+				<span class="section-label">Wholesale</span>
+				<ul>
+					<% @price_history.each do |change| %>
+						<%= number_to_currency change.price %>&nbsp;&nbsp;&nbsp;(<%= change.start_date.strftime('%m/%d/%y') %>)<br />
+					<% end %>
+				</ul>
+			</div>
+			<div class="small-6 columns">
+				<span class="section-label">Manufacturer</span>
+				<ul>
+					<% @price_history_m.each do |change| %>
+						<%= number_to_currency change.price %>&nbsp;&nbsp;&nbsp;(<%= change.start_date.strftime('%m/%d/%y') %>)<br />
+					<% end %>
+				</ul>
+			</div>
+		</div>
+		
+		<%= link_to(new_item_price_path(format: :js, item_id: @item.id), id:'new-item-price-link', remote: true) do %>
+			<small class="gold-button clickable" style="margin-top: 10px; margin-bottom: 10px;">
+				Change Price
+			</small>
+		<% end %>
+	</div>
 <% end %>
+</div>

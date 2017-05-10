@@ -31,38 +31,91 @@
 					</script>
 				</div>
 			</div>
-			<div class="small-3 columns">
-				<div id="log" class="row" style="text-align: right;">
+			<div class="small-3 columns" style="position: relative; right: 45px;">
+				<div id="log" class="row" style="text-align: right; position: relative; bottom: 10px;">
 					<% if logged_in? %>
-						<%= link_to 'Logout', logout_path %>
+						Hello, <%= current_user.proper_name %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Logout', logout_path %>
 					<% else %>
-						<%= link_to 'Login', login_path %>
+						<%= link_to 'Login/Register', login_path %>
 					<% end %>
 				</div>
-				<div class="row">
-					<% if logged_in? %>
-						Hello, <%= current_user.proper_name %><br/>
-						<div style="">
-							Dashboard
+				<!-- Account button and Cart -->
+				<% if logged_in? %>
+					<div class="row" style="position: relative; top: 5px; left: 92px;">
+						<div class="small-6 columns" style="position: relative; left: 60px;">
+							<%= link_to user_dashboard_path, class: "darken-on-hover" do %>
+								<%= image_tag("icons/user-white.png", class: "user-action user") %>
+							<% end %>
 						</div>
-					<% end %>
-				</div>
+						<div class="small-6 columns">
+							<%= link_to cart_path, class: "darken-on-hover", id: "cart-link" do %>
+								<%= image_tag("icons/shopping-bag-white.png", class: "user-action cart") %>
+								<span class="cart-count"><%= cart_count %></span>
+							<% end %>
+						</div>
+					</div>
+				<% end %>
 			</div>
 		</div>
 	</div>
 
-	<div class="header-bottom-half navy-blue-black">
+	<div class="navy-blue-black">
 		<div class="row" >
-			<div class="small-8 columns">
-				<%= link_to 'Boards', browse_path(category: "boards"), class: "nav-item-link"  %>
-				<%= link_to 'Pieces', browse_path(category: "pieces"), class: "nav-item-link" %>
-				<%= link_to 'Clocks', browse_path(category: "clocks"), class: "nav-item-link" %>
-				<%= link_to 'Supplies', browse_path(category: "supplies"), class: "nav-item-link" %>
-			</div>
-			<div class="small-4 columns">
-
-			</div>
+				<ul class="dropdown menu" data-dropdown-menu>
+					<li>
+						<%= link_to 'Boards', browse_path(category: "boards"), class: "nav-item-link nav-item"  %>
+					</li>
+					<li>
+						<%= link_to 'Pieces', browse_path(category: "pieces"), class: "nav-item-link nav-item" %>
+					</li>
+					<li>
+						<%= link_to 'Clocks', browse_path(category: "clocks"), class: "nav-item-link nav-item" %>
+					</li>
+					<li>
+						<%= link_to 'Supplies', browse_path(category: "supplies"), class: "nav-item-link nav-item" %>
+					</li>
+					<li class="employee-action">
+						<%= link_to 'Items', items_path(), class: "nav-item-link nav-item" %>
+						<ul class="menu">
+							<li>
+								<%= link_to 'Items', items_path(), class: "nav-item-link nav-item" %>
+							</li>
+							<li>
+								<%= link_to 'Prices', item_prices_path(), class: "nav-item-link nav-item" %>
+							</li>
+							<li>
+								<%= link_to 'Purchases', purchases_path(), class: "nav-item-link nav-item" %>
+							</li>
+						</ul>
+					</li>
+					<li class="employee-action">
+						<%= link_to 'Users', users_path(), class: "nav-item-link nav-item" %>
+						<ul class="menu">
+							<li>
+								<%= link_to 'Customers', users_customers_path(), class: "nav-item-link nav-item" %>
+							</li>
+							<li>
+								<%= link_to 'Employees', users_employees_path(), class: "nav-item-link nav-item" %>
+							</li>
+						</ul>
+					</li>
+					<li class="employee-action"><%= link_to 'Schools', nil, class: "nav-item-link nav-item" %></li>
+					<li class="employee-action"><%= link_to 'Orders', nil, class: "nav-item-link nav-item" %></li> 
+				</ul>
+				
 		</div>
 	</div>
+
+	<!-- Employee Navigation -->
+	<% if logged_in? %>
+		<% if current_user.role == "admin" %>
+
+		<% elsif current_user.role == "manager" %>
+
+		<% elsif current_user.role == "shipper" %>
+
+		<% end %>
+	<% end %>
+		
 </header>
 

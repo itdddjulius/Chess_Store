@@ -1,0 +1,24 @@
+<div class="reveal" id="item-price-form" data-reveal>
+	<div class="small-8 small-offset-2 columns">
+		<h5 style="margin-bottom: 15px;">New Price</h5>
+		<%= form_for @item_price, remote: true do |f| %>
+
+				<%= f.hidden_field :item_id, value: @item.id %>
+
+
+				<%= f.text_field :price %>
+				<%= f.select :category, ['wholesale', 'manufacturer'] %>
+				<div class="row">
+					<div class="small-8 small-offset-2 columns">
+						<div class="form-actions">
+							<%= f.submit nil, :class => 'gold-button full-width' %>
+						</div>
+					</div>
+				</div>
+		<% end %>
+
+		<button class="close-button" data-close aria-label="Close modal" type="button">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</div>

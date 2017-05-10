@@ -1,0 +1,43 @@
+<div id="cart-item-panel-<%= @order_item.item_id %>">
+<div class="row" style="border-bottom: 1px solid #d6d8db; margin-bottom: 0px;">
+	<div class="small-2 column">
+		<%= image_tag(getImagePath(@order_item.item.name)) %>
+	</div>
+	<div class="small-4 column" style="padding-top: 30px;">
+		<%= @order_item.item.name %><br/>
+	</div>
+	<div class="small-1 column" style="padding-top: 30px;">
+		<%= @order_item.item.current_price != nil ? sprintf("$%.2f", @order_item.item.current_price) : nil %><br/>
+		
+	</div>
+	<div class="small-3 column" style="position: relative; left: 15px;">
+		<div class="row" style="margin-bottom: 0px;">
+			<%= form_tag cart_update_path(format: :js), method: 'get', remote: true do %>
+			<%= hidden_field_tag 'item_id', @order_item.item.id %>
+				<div class="small-6 column" style="position: relative; top: 22px; ">
+					<input name="quantity" type="number" value="<%= @order_item.quantity %>" style="max-width: 70px; position: relative;"/>
+				</div>
+				<div class="small-6 column"  style="position: relative; top: 18px;">
+					<%= button_tag(type: "submit", class: "cart-action-links link-button") do %>
+						Update
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+		<div class="row" style="position: relative; margin-bottom: 0px;">
+			<div class="small-6 small-offset-6 column" style="position: relative; bottom: 6px;">
+				<%= form_tag cart_remove_path(format: :js), method: 'get', remote: true do %>
+					<%= hidden_field_tag 'item_id', @order_item.item.id %>
+						<%= button_tag(type: "submit", class: "cart-action-links link-button") do %>
+							Remove
+						<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="small-1 column" style="padding-top: 30px;">
+		<span class="total-item-price"><%= sprintf("$%.2f", @order_item.item.current_price * @order_item.quantity) %></span>
+	</div>
+</div>
+
+</div>

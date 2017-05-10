@@ -1,0 +1,33 @@
+<h3 style="margin-bottom: 20px;">Shopping Cart</h3>
+<div class="row">
+	<!-- Item Info -->
+	<div class="small-8 columns">
+		<div class="row" style="border-bottom: 1px solid #d6d8db; margin-bottom: 10px;">
+			<div class="small-6 column">
+				<span class="section-label dark-grey-text">PRODUCT</span>
+			</div>
+			<div class="small-1 column">
+				<span class="section-label dark-grey-text">PRICE</span>
+			</div>
+			<div class="small-4 column" style="position: relative; left: 15px;">
+				<span class="section-label dark-grey-text">QTY.</span>
+			</div>
+			<div class="small-1 column">
+				<span class="section-label dark-grey-text">TOTAL</span>
+			</div>
+		</div>
+		<div id="cart-items" style="position: relative; top: 10px;">
+			<% if @order_items.empty? %>
+				Your cart is empty.
+			<% else %>
+				<% for @order_item in @order_items %>
+					<%= render 'cart_item_panel' %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<!-- Payment Options -->
+	<div class="small-4 columns" style="position: relative; left: 20px;">
+		<%= render 'cart_info' %>
+	</div>
+</div>

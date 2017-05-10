@@ -102,7 +102,7 @@ class UserTest < ActiveSupport::TestCase
     
     should "have a working scope called customers" do
       create_customer_users
-      assert @mark .active
+      assert @mark.active
       assert_equal ["bjunker", "imadueme", "kirvine", "melfree", "mvella"], User.customers.all.map(&:username).sort
       destroy_customer_users
     end

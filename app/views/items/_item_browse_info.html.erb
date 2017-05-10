@@ -1,40 +1,43 @@
 <!-- This partial represents a single item info card -->
+<div class="item-block">
 
-<!-- image -->
-<div class="row text-center">
-	<% options = {height: '150', width: '150', class: "item-thumbnail unselectable", alt: "No Image Available"} %>
-	<%= image_tag(getThumbnailPath(@item.name), options) %>
-</div>
-
-<!-- Prices -->
-<% highest_price = ItemPrice.for_item(@item).maximum(:price) %>
-<% @highest_price = highest_price != nil ? sprintf("$%.2f", highest_price) : nil %>
-<% @current_price = @item.current_price != nil ? sprintf("$%.2f", @item.current_price) : nil %>
-<!-- if active/available -->
-<% if @item.active %>
-	<!-- Price -->
-	<div style="font-weight: bold; font-size: 20px;">
-		<% if @current_price != nil %>
-			<% if @highest_price != nil && @highest_price > @current_price %> 
-				<span class="section-label red-text" style="font-size: 12px;">Sale</span><br/>
-				<span class="red-text"><%= @current_price %></span>
-			<% else %>
-				<%= @current_price %>
-			<% end %>
-		<% else %>
-			<span style="font-style: italic">Price Not Set</span>
-		<% end %>
+	<!-- image -->
+	<div class="row text-center">
+		<% options = {height: '150', width: '150', class: "item-thumbnail unselectable", alt: "No Image Available"} %>
+		<%= image_tag(getThumbnailPath(@item.name), options) %>
 	</div>
 
-	<!-- stock notification -->
-	<% if @item.reorder? %>
-		<span class="red-text" style="font-weight: bold; font-size: 14px;">LOW STOCK</span><br/>
-	<% end %>
-	
-<!-- if inactive/unavailable -->
-<% else %>
-		<span class="red-text" style="font-weight: bold; font-size: 14px;">NOT AVAILABLE</span>
-<% end %>
+	<!-- Prices -->
+	<% highest_price = ItemPrice.for_item(@item).maximum(:price) %>
+	<% @highest_price = highest_price != nil ? sprintf("$%.2f", highest_price) : nil %>
+	<% @current_price = @item.current_price != nil ? sprintf("$%.2f", @item.current_price) : nil %>
+	<!-- if active/available -->
+	<% if @item.active %>
+		<!-- Price -->
+		<div style="font-weight: bold; font-size: 20px;">
+			<% if @current_price != nil %>
+				<% if @highest_price != nil && @highest_price > @current_price %> 
+					<span class="section-label red-text" style="font-size: 12px;">Sale</span><br/>
+					<span class="red-text"><%= @current_price %></span>
+				<% else %>
+					<%= @current_price %>
+				<% end %>
+			<% else %>
+				<span style="font-style: italic">Price Not Set</span>
+			<% end %>
+		</div>
 
-<!-- name -->
-<%= @item.name %><br/>
+		<!-- stock notification -->
+		<% if @item.reorder? %>
+			<span class="red-text" style="font-weight: bold; font-size: 14px;">LOW STOCK</span><br/>
+		<% end %>
+		
+	<!-- if inactive/unavailable -->
+	<% else %>
+			<span class="red-text" style="font-weight: bold; font-size: 14px;">NOT AVAILABLE</span>
+	<% end %>
+
+	<!-- name -->
+	<%= @item.name %><br/>
+
+</div>

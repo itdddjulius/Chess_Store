@@ -1,0 +1,28 @@
+// Update the cart icon and count
+var val = 1.5;
+$('.user-action.cart').css({
+	'-webkit-transform': 'scale(' + val + ')',
+	'-moz-transform': 'scale(' + val + ')',
+	'-ms-transform': 'scale(' + val + ')',
+	'-o-transform': 'scale(' + val + ')',
+	'transform': 'scale(' + val + ')'
+});
+
+$( ".cart-count" ).replaceWith( "<span class='cart-count'><%= cart_count %></span>" );
+
+val = 1;
+setTimeout(function(){
+	$('.user-action.cart').css({
+		'-webkit-transform': 'scale(' + val + ')',
+		'-moz-transform': 'scale(' + val + ')',
+		'-ms-transform': 'scale(' + val + ')',
+		'-o-transform': 'scale(' + val + ')',
+		'transform': 'scale(' + val + ')'
+	});
+}, 1000);
+
+// Edit modal and reveal
+$('#modal-quantity').replaceWith( "<span id='modal-quantity'><%= @quantity %></span>");
+$('#modal-total-quantity').replaceWith( "<span id='modal-total-quantity'><%= (@order_items.find { |oi| oi.item_id == @item.id }).quantity %></span>");
+$('#modal-total-cost').replaceWith( "<span id='modal-total-cost'><%= sprintf('%.2f', (@order_items.find { |oi| oi.item_id == @item.id }).quantity * @item.current_price) %></span>");
+$('#item-modal').foundation('open');

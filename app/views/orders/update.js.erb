@@ -1,0 +1,28 @@
+// replace the old partial
+<% @order_item = @order_items.find { |oi| oi.item_id == Integer(@item_id) } %>
+$('#cart-item-panel-<%= @item_id %>').replaceWith( '<%= j render "cart_item_panel" %>');
+
+// animate item price
+setTimeout(function(){
+	$('#cart-item-panel-<%= @item_id %> .total-item-price').css("font-size", "inherit");
+}, 1000);
+
+$('#cart-item-panel-<%= @item_id %> .total-item-price').ready(function() {
+	$('#cart-item-panel-<%= @item_id %> .total-item-price').css("font-size", "20px");
+});
+
+//redo cart-info and animate changes
+$('.cart-subtotal').replaceWith("<span class='cart-subtotal'><%= cart_subtotal %></span>");
+$('.cart-total').replaceWith("<span class='cart-total'><%= cart_total %></span>");
+$('.cart-shipping').replaceWith("<span class='cart-shipping'><%= cart_shipping %></span>");
+setTimeout(function(){
+	$('#cart-info .cart-total').css("font-size", "inherit");
+	$('#cart-info .cart-subtotal').css("font-size", "inherit");
+	$('#cart-info .cart-shipping').css("font-size", "inherit");
+}, 1000);
+
+$('#cart-info').ready(function() {
+	$('#cart-info .cart-total').css("font-size", "20px");
+	$('#cart-info .cart-subtotal').css("font-size", "20px");
+	$('#cart-info .cart-shipping').css("font-size", "20px");
+});

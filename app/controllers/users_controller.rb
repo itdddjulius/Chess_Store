@@ -2,13 +2,28 @@ class UsersController < ApplicationController
 	before_action :check_login, except: [:new, :create]
 	before_action :check_not_login, only: [:new, :create]
 
+	before_action :set_user, only: [:show, :edit, :update]
 
+	def index
+		@users = User.all.to_a
+	end
+
+	def show
+	end
+
+	def employees
+		@users = User.employees.active.to_a
+	end
+
+	def customers
+		@users = User.customers.active.to_a
+	end
+	
 	def new
 		@user = User.new
 	end
 
 	def edit
-		@user = current_user
 	end
 
 	def create
@@ -16,6 +31,7 @@ class UsersController < ApplicationController
 		@user.role = "customer"
 		if @user.save
 			session[:user_id] = @user.id
+			flash[:welcome] = true
 			redirect_to home_path, notice: "Successfully created your account."
 		else
 			render action: 'new'
@@ -23,15 +39,37 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		@user = current_user
 		if @user.update(user_params)
-			redirect_to home_path, notice: "Successfully updated user."
+			redirect_to user_path(@user.id), notice: "Successfully updated user."
 		else
 			render action: 'edit'
 		end
 	end
 
+	def dashboard
+	end
+
 	private
+	def can_edit
+		if current_user.role == 'admin'
+			return true
+		elsif current_user.role == 'manager' && @user.role == 'shipper'
+			return true
+		elsif current_user.id == @user.id
+			return true
+		else
+			return false
+		end
+	end
+	helper_method :can_edit
+
+	def set_user
+		if can_edit
+			@user = User.find_by_id(params[:id])
+		else
+			@user = current_user
+		end
+	end
 	def user_params
 		params.require(:user).permit(:first_name, :last_name, :username, :phone, :email, :password, :password_confirmation)
 	end

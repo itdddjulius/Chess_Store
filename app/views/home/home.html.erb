@@ -1,32 +1,11 @@
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
 <!-- Slideshow, Newest Item, Recently Reduced Item -->
 <div class="row">
 	<div class="small-8 columns">
-		<section class="fade slider">
-			<div>
-				<img src="http://placehold.it/350x300?text=1">
-			</div>
-			<div>
-				<img src="http://placehold.it/200x300?text=2">
-			</div>
-		</section>
-		<script>
-			$('.fade').slick({
-				dots: true,
-				infinite: true,
-				speed: 500,
-				fade: true,
-				cssEase: 'linear'
-			});
-		</script>
+		
 	</div>
+	<!-- Interesting items -->
 	<div class="small-4 columns">
-		<div class="row">
 
-		</div>
-		<div class="row">
-
-		</div>
 	</div>
 </div>
 
@@ -44,3 +23,22 @@
 <div class="row">
 
 </div>
+<% if flash[:welcome] %>
+	<div class="reveal" id="welcome" data-reveal data-close-on-click="true" data-animation-in="slide-in-down" data-animation-out="slide-out-up">
+		<h3>Welcome to the A&M Chess Store!</h3>
+		<h4>Get Started</h4>
+		<ul>
+			<li><%= link_to 'Create a school for shipping', new_school_path %></li>
+			<li><%= link_to 'Start browsing items', browse_path %></li>
+			<li><%= link_to 'Show me the User Action Center', user_dashboard_path %></li>
+		</ul>
+		<button class="close-button" data-close aria-label="Close reveal" type="button">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<script>
+		$('#welcome').ready(function() {
+			$('#welcome').foundation('open');
+		});
+	</script>
+<% end %>

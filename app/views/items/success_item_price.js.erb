@@ -1,0 +1,10 @@
+$('#item-price-form').foundation('close');
+$('#item-price-form').replaceWith('<div id="item-price-form"></div>');
+$('#price-history').replaceWith('<%= j render "items/price_history" %>');
+setTimeout(function(){
+	$('#price-history ul').css("font-size", "18px");
+}, 500);
+
+setTimeout(function(){
+	$('#price-history ul').css("font-size", "inherit");
+}, 1500);

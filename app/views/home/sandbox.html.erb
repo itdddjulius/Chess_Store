@@ -1,0 +1,36 @@
+
+<button onclick="myFunction()">Click me</button>
+
+<script>
+function myFunction() {
+	$('#1').foundation('open');
+}
+</script>
+<% @item = Item.all.first %>
+<!-- Successfully added to cart modal -->
+<div class="reveal" id="1" data-reveal data-overlay="false">
+	<h3>Successfully added to cart</h3>
+	<div class="row">
+		<div class="small-6 columns">
+			<%= image_tag(getImagePath(@item.name)) %>
+		</div>
+		<div class="small-6 columns">
+			 Price: <%= @item.current_price != nil ? sprintf("$%.2f", @item.current_price) : nil %><br/>
+			 Quantity: <span id="modal-quantity"></span>
+			 <hr class="grey-line"/>
+			 Total: <span id="modal-total"></span>
+			 <%= link_to cart_path do %>
+			 	<div class="grey-button text-center full-width" style="margin-top: 20px;">
+			 		Go to Cart
+			 	</div>
+			 <% end %>
+		</div>
+	</div>
+	<button class="close-button" data-close aria-label="Close reveal" type="button">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<script>
+	$('#item-modal').foundation('open');
+</script>

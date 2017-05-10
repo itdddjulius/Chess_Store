@@ -1,0 +1,31 @@
+<div id="cart-info" style="position: relative; bottom: 10px;">
+	<div class="section">
+		<h5 style="margin-bottom: 15px;">Summary</h5>
+		<div class="row">
+			<div class="small-6 columns">
+				Subtotal<br/>
+				Shipping
+			</div>
+			<div class="small-6 columns" style="float: right;">
+				<span class='cart-subtotal'><%= cart_subtotal %></span><br/>
+				<span class="cart-shipping"><%= cart_shipping %></span>
+			</div>
+
+		</div>
+		<hr class="grey-line"/>
+		<div class="row">
+			<div class="small-6 columns">
+				Total
+			</div>
+			<div class="small-6 columns" style="float: right;">
+				<span class="cart-total"><%= cart_total %></span>
+			</div>
+		</div>
+		<!-- Checkout -->
+		<%= link_to cart_checkout_path do %>
+			<button data-open="payment-modal" class="full-width gold-button" style="margin-top: 15px;">
+				Proceed to Checkout
+			</button>
+		<% end %>
+	</div>
+</div>

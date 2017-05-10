@@ -1,11 +1,11 @@
 <!-- This partial represents a paginated items list for browsing-->
     
-<div class="item-browse" style="min-height: 500px;"">
+<div id="item-browse" class="item-browse" style="min-height: 500px;"">
 
 <!--  Top of page pagination -->
 <div class="row">
-	<div class="small-6 columns" style="color: #a7a7a7; position: relative;">
-		<form class="item-browse-controls style="position: relative; top: 15px;">
+	<div class="small-6 columns" style="color: #a7a7a7; position: relative; top: 28px;">
+		<form class="item-browse-controls" style="position: relative; top: 15px;">
 			<% if params[:category] != nil && params[:category] != nil %>
 				<% if params[:category].kind_of? Array %>
 					<% for c in params[:category] %>
@@ -27,24 +27,24 @@
 			</div>
 			<div class="small-3 columns" style="position: relative; right: 10px;">
 				<label class="section-label" style="font-size: 10px;">PER ROW</label>
-				<select name="perrow" id="perrow" style="max-width: 40px;" class="auto-submit-field-perrow form-field">
-					<option value=3 <%= 'selected' if [nil, 0, ""].include?(params[:perrow]) || params[:perrow] == "3" %>>3</option>
-					<option value=4 <%= 'selected' if params[:perrow] == "4" %>>4</option>
+				<select name="perrow" id="perrow" style="max-width: 60px;" class="auto-submit-field-perrow form-field">
+					<option value="3" <%= 'selected' if [nil, 0, ""].include?(params[:perrow]) || params[:perrow] == "3" %>>3</option>
+					<option value="4" <%= 'selected' if params[:perrow] == "4" %>>4</option>
 				</select>
 			</div>
 			<div class="small-3 columns" style="position: relative; right: 40px">
 				<label class="section-label" style="font-size: 10px;">PER PAGE</label>
 				<% if [nil, 0, ""].include?(params[:perrow]) || params[:perrow] == "3" %>
-					<select name="perpage" id="perpage" style="width: 45px;" class="auto-submit-field-perpage form-field">
-						<option value=6 <%= 'selected' if params[:perpage] == "6" %>>6</option>
-						<option value=9 <%= 'selected' if [nil, 0, ""].include?(params[:perpage]) || params[:perpage] == "9" %>>9</option>
-						<option value=12 <%= 'selected' if params[:perpage] == "12" %>>12</option>
+					<select name="perpage" id="perpage" style="width: 60px;" class="auto-submit-field-perpage form-field">
+						<option value="6" <%= 'selected' if params[:perpage] == "6" %>>6</option>
+						<option value="9" <%= 'selected' if [nil, 0, ""].include?(params[:perpage]) || params[:perpage] == "9" %>>9</option>
+						<option value="12" <%= 'selected' if params[:perpage] == "12" %>>12</option>
 					</select>
 				<% elsif params[:perrow] == "4" %>
-					<select name="perpage" id="perpage" style="width: 45px;" class="auto-submit-field-perpage form-field">
-						<option value=8 <%= 'selected' if params[:perpage] == "8" %>>8</option>
-						<option value=12 <%= 'selected' if [nil, 0, ""].include?(params[:perpage]) || params[:perpage] == "12" %>>12</option>
-						<option value=16 <%= 'selected' if params[:perpage] == "16" %>>16</option>
+					<select name="perpage" id="perpage" style="width: 60px;" class="auto-submit-field-perpage form-field">
+						<option value="8" <%= 'selected' if params[:perpage] == "8" %>>8</option>
+						<option value="12" <%= 'selected' if [nil, 0, ""].include?(params[:perpage]) || params[:perpage] == "12" %>>12</option>
+						<option value="16" <%= 'selected' if params[:perpage] == "16" %>>16</option>
 					</select>
 				<% end %>
 			</div>
@@ -92,18 +92,15 @@
 </div>
 
 <!-- Item display grid -->
-
-<ul class="small-block-grid-<%= [nil, 0, ""].include?(params[:perrow]) ? 3 : Integer(params[:perrow]) %> item-browse-list">
+<div id="item-browse-list" class="row small-up-<%= [nil, 0, ""].include?(params[:perrow]) ? 3 : Integer(params[:perrow]) %> item-browse-list">
 	<% for @item in @items %>
-		<li>
+		<div class="column">
 			<%= link_to details_path(id: @item.id) do %>
-				<div class="item-block">
-					<%= render :partial => "item_browse_info" %>
-				</div>
+				<%= render :partial => "item_browse_info" %>
 			<% end %>
-		</li>
+		</div>
 	<% end %>
-</ul>
+</div>
 
 <!--  Bottom of page pagination -->
 <div class="row">

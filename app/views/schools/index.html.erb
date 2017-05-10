@@ -1,0 +1,102 @@
+<style>
+	.reveal .row {
+		margin-bottom: 10px;
+	}
+</style>
+<div class="large-basic-container">
+	<div class="row">
+		<div class="small-3 columns" style="position: relative; top: 20px;">
+			<h3>Schools</h3>
+		</div>
+		<div class="small-4 columns" style="position: relative; top: 20px;">
+			<%= link_to new_school_path do %>
+				<button class="gold-button full-width">
+					Create School
+				</button>
+			<% end %>
+		</div>
+		<span class="small-1 columns"></span>
+		<div class="small-4 columns">
+			<div style="width: 100%; float: right;">
+				<label for="#school-autocomplete">Find a school</label>
+				<input id="school-autocomplete" data-autocomplete="/schools/autocomplete_school_name" data-id-element="#school_id" type="text"/>
+				<script>
+					$('#school-autocomplete').bind('railsAutocomplete.select', function(event, data){
+						$('#school-' + data.item.id + '-details').foundation('open');
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="large-basic-container">
+	<div class="">
+		<table class="hover">
+		  <thead>
+		    <tr>
+		      <th width="50">ID</th>
+		      <th>Name</th>
+		      <th>Address</th>
+		      <th width="150">Grade</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<% for @school in @schools %>
+					<tr id="school-<%= @school.id %>-row">
+						<td><%= @school.id %></td>
+						<td><%= @school.name %></td>
+						<td>
+							<%= @school.street_1 %><br/>
+							<%= @school.city %>, <%= @school.state %> <%= @school.zip %>
+						</td>
+						<td>
+							<%= ["", nil].include?(@school.min_grade) ? 'N/A' : @school.min_grade %> - <%= ["", nil].include?(@school.max_grade) ? 'N/A' : @school.max_grade %>
+						</td>
+						<%= render 'details' %>
+					</tr>
+					
+			  		<script>
+		  				$("#school-<%= @school.id %>-row").mouseover(function() {
+		  					$(this).css("cursor", "pointer");
+		  				});
+		  				$("#school-<%= @school.id %>-row").mouseout(function() {
+		  					$(this).css("cursor", "");
+		  				});
+		  				$("#school-<%= @school.id %>-row").click(function() {
+		  					$("#school-<%= @school.id %>-details").foundation('open');
+		  				});
+		  			</script>
+		  	<% end %>
+		  </tbody>
+		</table>
+		<% if @schools == nil || @schools.empty? %>
+			There are no schools to be shown.
+		<% end %>
+	</div>
+</div>
+<div class="large-basic-container">
+	<div class="row">
+		<div class="small-3 columns" style="position: relative; top: 20px;">
+			&nbsp;
+		</div>
+		<div class="small-4 columns" style="position: relative; top: 20px;">
+			<%= link_to new_school_path do %>
+				<button class="gold-button full-width">
+					Create School
+				</button>
+			<% end %>
+		</div>
+		<span class="small-1 columns"></span>
+		<div class="small-4 columns">
+			<div style="width: 100%; float: right;">
+				<label for="#school-autocomplete">Find a school</label>
+				<input id="school-autocomplete" data-autocomplete="/schools/autocomplete_school_name" data-id-element="#school_id" type="text"/>
+				<script>
+					$('#school-autocomplete').bind('railsAutocomplete.select', function(event, data){
+						$('#school-' + data.item.id + '-details').foundation('open');
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>

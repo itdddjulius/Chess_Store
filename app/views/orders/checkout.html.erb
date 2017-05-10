@@ -1,0 +1,129 @@
+<style>
+	input[type=number]::-webkit-inner-spin-button, 
+	input[type=number]::-webkit-outer-spin-button { 
+	  -webkit-appearance: none; 
+	  margin: 0; 
+	}
+</style>
+<div class="row">
+	<!-- Item Info -->
+	
+	<div class="small-6 small-offset-1 columns">
+		<!-- errors -->
+		<% if @order.errors.any? %>
+			<div id="error_explanation" class="orange-border">
+				<div style="color: #e77600; margin-bottom: 10px; font-style: bold !important;">
+					<%= pluralize(@order.errors.count, "fix") %> needs to be made:
+				</div>
+
+				<ul style="font-size: 12px;">
+					<% @order.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+
+		<%= form_for @order, url: orders_place_path(@order) do |f| %>
+		<div id="payment" class="row">
+			<hr class="grey-line"/>
+				<h4>Payment</h4>
+			<hr class="grey-line"/>
+			<div class="row">
+				<div class="small-6 columns">
+					<%= f.label :credit_card_number, "Card No." %>
+					<%= f.number_field :credit_card_number, class: "form-field" %>
+				</div>
+			</div>
+			<%= image_tag("order/accepted-cards.png", class: 'accepted-cards-img') %>
+			<br/><br/>
+			<div class="row">
+				<div class="small-6 columns">
+					<div class="row">
+						<div class="small-3 columns">
+							<%= f.label :expiration_month, "Month" %>
+							<%= f.number_field :expiration_month, class: "form-field" %>
+						</div>
+						<span class="small-1 columns" style="position: relative; top: 32px;">/</span>
+						<div class="small-5 columns">
+							<%= f.label :expiration_year, "Year" %>
+							<%= f.number_field :expiration_year, class: "form-field" %>
+						</div>
+						<span class="small-3 columns"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="shipping" class="row">
+			<hr class="grey-line"/>
+				<h4>Shipping</h4>
+			<hr class="grey-line"/>
+			<div class="row">
+				<div class="small-6 columns">
+					<%= f.label :school_id, "Please select a school" %>
+					<%= f.hidden_field :school_id, id: "school_id" %>
+					
+					<input id="school-autocomplete" data-autocomplete="/schools/autocomplete_school_name" data-id-element="#school_id" type="text"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-6 columns" style="display: table; position: relative; bottom: 20px;">
+					<div id="selected-school-info" style="height: 100%; display: table-cell; vertical-align: middle;">
+						No school selected.
+						<script>
+							$('#school-autocomplete').bind('railsAutocomplete.select', function(event, data){
+								/* Do something here */
+								$('#selected-school-info').replaceWith(`
+									<div id='selected-school-info'>`
+										+ data.item.name + "<br/>"
+										+ data.item.street_1 + "<br/>"
+										+ data.item.city + ", " + data.item.state + " " + data.item.zip + 
+									`</div>`);
+							});
+						</script>
+					</div>
+				</div>
+			</div>
+			<!-- Submit -->
+			<hr class="grey-line"/>
+			<div class="row">
+				<div class="small-6 columns">
+					<%= button_tag(type: "submit", class: "gold-button full-width") do %>
+						Place Order
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	
+	<!-- Payment Options -->
+	<div class="small-4 columns" style="position: relative; left: 20px;">
+		<div id="cart-info" style="position: relative; top: 20px;">
+			<div class="section">
+				<h5 style="margin-bottom: 15px;">Review Order</h5>
+				<div class="row">
+					<div class="small-6 columns">
+						Subtotal<br/>
+						Shipping
+					</div>
+					<div class="small-6 columns" style="float: right;">
+						<span class='cart-subtotal'><%= cart_subtotal %></span><br/>
+						<span class="cart-shipping"><%= cart_shipping %></span>
+					</div>
+
+				</div>
+				<hr class="grey-line"/>
+				<div class="row">
+					<div class="small-6 columns">
+						Total
+					</div>
+					<div class="small-6 columns" style="float: right;">
+						<span class="cart-total"><%= cart_total %></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<span class="small-1 columns"></span>
+</div>

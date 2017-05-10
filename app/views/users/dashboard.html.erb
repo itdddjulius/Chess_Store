@@ -1,0 +1,133 @@
+<style>
+	.grey-button {
+		position: relative;
+		height: 100px;
+		width: 90px;
+		padding: 0 0;
+		margin-left: 15px;
+
+		-webkit-user-select: none; /* Chrome/Safari */        
+		-moz-user-select: none; /* Firefox */
+		-ms-user-select: none; /* IE10+ */
+
+		/* Rules below not implemented in browsers yet */
+		-o-user-select: none;
+		user-select: none;
+	}
+
+	.grey-button .icon {
+		max-height: 40px;
+		max-width: 40px;
+		position: relative;
+		bottom: 5px;
+	}
+
+	.grey-button label {
+		font-family: Calibri;
+		font-size: 16px;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}
+</style>
+<% options = {class: 'icon', alt: "No Image Available"} %>
+<div class="large-basic-container">
+	<h4>User</h4>
+	<div id="users" class="row ">
+		<%= link_to user_path(current_user.id) do %>
+			<button class="grey-button" >
+				<%= image_tag('icons/user-black.png', options) %>
+				<label>Your Info</label>
+			</button>
+		<% end %>
+		<% if current_user.role == 'shipper' || current_user.role == 'admin'%>
+
+		<% end %>
+		<% if current_user.role == 'manager' || current_user.role == 'admin' %>
+			<%= link_to users_customers_path do %>
+				<button class="grey-button" >
+					<%= image_tag('icons/customer-black.png', options) %>
+					<label>Customers</label>
+				</button>
+			<% end %>
+			<%= link_to users_employees_path do %>
+				<button class="grey-button" >
+					<%= image_tag('icons/employee-black.png', options) %>
+					<label>Employees</label>
+				</button>
+			<% end %>
+			<%= link_to users_path do %>
+				<button class="grey-button" >
+					<%= image_tag('icons/index-black.png', options) %>
+					<label>All</label>
+				</button>
+			<% end %>
+		<% end %>
+		<% if current_user.role == 'admin' %>
+
+		<% end %>
+	</div>
+	<h4>Order</h4>
+	<div id="orders" class="row ">
+		<%= link_to orders_list_path do %>
+			<button class="grey-button" >
+				<%= image_tag('icons/shopping-bag-black', options) %>
+				<label>Your Orders</label>
+			</button>
+		<% end %>
+		<% if current_user.role == 'shipper' || current_user.role == 'admin'%>
+			<%= link_to orders_unshipped_path do %>
+				<button class="grey-button" >
+					<%= image_tag('icons/truck-black.png', options) %>
+					<label>Unshipped</label>
+				</button>
+			<% end %>
+		<% end %>
+		<% if current_user.role == 'manager' || current_user.role == 'admin'%>
+			<%= link_to orders_path do %>
+				<button class="grey-button" >
+					<%= image_tag('icons/index-black.png', options) %>
+					<label>All</label>
+				</button>
+			<% end %>
+		<% end %>
+		<% if current_user.role == 'admin' %>
+			
+		<% end %>
+	</div>
+	<h4>School</h4>
+	<div id="schools" class="row ">
+		<%= link_to schools_path do %>
+			<button class="grey-button" >
+				<%= image_tag('icons/school-black.png', options) %>
+				<label>School</label>
+			</button>
+		<% end %>
+		<%= link_to new_school_path do %>
+			<button class="grey-button" >
+				<%= image_tag('icons/create-black.png', options) %>
+				<label>Create</label>
+			</button>
+		<% end %>
+		<% if current_user.role == 'shipper' || current_user.role == 'admin'%>
+			
+		<% end %>
+		<% if current_user.role == 'manager' || current_user.role == 'admin'%>
+
+		<% end %>
+		<% if current_user.role == 'admin' %>
+			
+		<% end %>
+	</div>
+	<div id="items" class="row ">
+		<% if current_user.role == 'shipper' || current_user.role == 'admin'%>
+			
+		<% end %>
+		<% if current_user.role == 'manager' || current_user.role == 'admin'%>
+
+		<% end %>
+		<% if current_user.role == 'admin' %>
+			
+		<% end %>
+	</div>
+</div>

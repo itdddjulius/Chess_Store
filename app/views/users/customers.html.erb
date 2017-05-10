@@ -1,0 +1,41 @@
+<div class="large-basic-container">
+	<h5>Customers</h5>
+	<table class="hover">
+	  <thead>
+	    <tr>
+	      <th width="50">ID</th>
+	      <th>Name</th>
+	      <th>Username</th>
+	      <th>Email</th>
+	      <th width="50">Orders</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% for user in @users %>
+	  		
+		  		<tr id="user-<%= user.id %>-row">
+		  		  <td><%= user.id %></td>
+		  		  <td><%= user.name %></td>
+		  		  <td><%= user.username %></td>
+		  		  <td><%= user.email %></td>
+		  		  <td><%= user.orders.length %></td>
+		  		</tr>
+	  			<script>
+	  				$("#user-<%= user.id %>-row").mouseover(function() {
+	  					$(this).css("cursor", "pointer");
+	  				});
+	  				$("#user-<%= user.id %>-row").mouseout(function() {
+	  					$(this).css("cursor", "");
+	  				});
+	  				$("#user-<%= user.id %>-row").click(function() {
+	  					window.location = "/users/<%= user.id %>";
+	  				});
+	  			</script>
+	  	<% end %>
+
+	  </tbody>
+	</table>
+	<% if @users == nil || @users.empty? %>
+		There are no orders to be shown.
+	<% end %>
+</div>

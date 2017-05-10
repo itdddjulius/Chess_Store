@@ -1,6 +1,10 @@
 <% flash.each do |name, msg| %>
-  <div data-alert data-options="animation_speed:500, animation:'fadeOut';" class="alert-box <%= flash[:notice] ? "success" : "warning" %> radius">
-    <a href="#" class="close">&times;</a>
+	<% unless name == "welcome" %>
+  <div class="callout <%= flash[:notice] ? "success" : "alert" %> radius" data-closable>
     <%= msg %>
+    <button class="close-button unselectable" aria-label="Dismiss alert" type="button" data-close>
+  		<span aria-hidden="true">&times;</span>
+    </button>
   </div>
+  <% end %>
 <% end %>

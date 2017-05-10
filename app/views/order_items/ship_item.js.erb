@@ -1,0 +1,5 @@
+$('#oi-<%= @order_item.id %>-row form').replaceWith(
+	`<span class="section-label" style="font-size: 12px; color: #44cd48;">Shipped on <%= @order_item.shipped_on %></span>`
+	);
+
+$('#order-<%= @order_item.order.id %>-row #cancel').remove();
