@@ -49,6 +49,15 @@
 					<% end %>
 				</div>
 			</div>
+			<div class="row">
+				<div class="small-6 small-offset-3 columns">
+					<%= link_to user_path(@user.id), method: 'delete', data: {confirm: "Are you sure you want to attempt to destroy this user?"} do %>
+						<button id="destroy-link" class="grey-button full-width">
+							Inactivate Profile
+						</button>
+					<% end %>
+				</div>
+			</div>
 		<% end %>
 	</div>
 </div>

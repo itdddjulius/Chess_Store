@@ -1,5 +1,6 @@
 class ItemPricesController < ApplicationController
 	before_action :check_login
+	authorize_resource
 
 	def index
 		@active_items = Item.active.alphabetical.to_a
@@ -8,7 +9,6 @@ class ItemPricesController < ApplicationController
 	def new
 		@item_price = ItemPrice.new
 		@item = Item.find_by_id(params[:item_id])
-
 		respond_to do |format|
 		    format.html
 		    format.js { render '/items/new_item_price.js.erb' }

@@ -36,6 +36,12 @@
 							Update School
 						</button>
 					<% end %>
+					<br/><br/>
+					<%= link_to school_path(@school.id), method: 'delete', data: {confirm: "Are you sure you want to inactivate this school?"} do %>
+						<button id="update-link" class="grey-button full-width">
+							Inactivate School
+						</button>
+					<% end %>
 				</div>
 			</div>
 		<% end %>

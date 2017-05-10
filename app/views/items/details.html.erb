@@ -70,8 +70,12 @@
 						<% end %>
 					</select>
 					<hr class="grey-line" style="margin-top: 30px;"/>
-					<%= button_tag(type: "submit", class: "gold-button full-width") do %>
-							Add to Cart
+					<% if logged_in? %>
+						<%= button_tag(type: "submit", class: "gold-button full-width") do %>
+								Add to Cart
+						<% end %>
+					<% else %>
+						Log in to access the a cart
 					<% end %>
 				<% end #form end %>
 

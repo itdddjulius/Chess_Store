@@ -38,6 +38,12 @@
 							Update School
 						</button>
 					<% end %>
+					<br/><br/>
+					<%= link_to school_path(@school.id), method: 'delete', data: {confirm: "Are you sure you want to attempt to destroy this user?"} do %>
+						<button id="update-link" class="grey-button full-width">
+							Destroy School
+						</button>
+					<% end %>
 				</div>
 			</div>
 		<% end %>

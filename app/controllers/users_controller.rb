@@ -2,7 +2,9 @@ class UsersController < ApplicationController
 	before_action :check_login, except: [:new, :create]
 	before_action :check_not_login, only: [:new, :create]
 
-	before_action :set_user, only: [:show, :edit, :update]
+	before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+	authorize_resource
 
 	def index
 		@users = User.all.to_a
@@ -47,6 +49,11 @@ class UsersController < ApplicationController
 	end
 
 	def dashboard
+	end
+
+	def destroy
+		@user.destroy
+		redirect_to users_path, notice: 'User inactivated.'
 	end
 
 	private

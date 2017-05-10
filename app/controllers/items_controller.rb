@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
 	PER_PAGE = 9
 
 	before_action :set_item, only: [:show, :edit, :update, :destroy, :details]
+	authorize_resource
 
 	def index
 		# get info on active items for the big three...

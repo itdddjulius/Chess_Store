@@ -2,6 +2,8 @@ class OrdersController < ApplicationController
 	include ChessStoreHelpers::Cart
 	include ChessStoreHelpers::Shipping
 	helper ItemsHelper
+	before_action :check_login
+	authorize_resource
 
 	def new
 	end
@@ -103,7 +105,7 @@ class OrdersController < ApplicationController
 		if @order.save
 			save_each_item_in_cart(@order)
 			clear_cart
-			redirect_to home_path, notice: "Successfully placed your order."
+			redirect_to orders_list_path, notice: "Successfully placed your order."
 		else
 			render action: 'checkout'
 		end
