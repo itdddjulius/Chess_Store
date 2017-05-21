@@ -27,6 +27,14 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="small-4 columns">
+				<%= f.label :city, "State" %>
+				<%= f.text_field :city, states, class: "form-field" %>
+				<!-- <small class="error">Email can't be blank</small> -->
+			</div>
+			<span class="small-1 columns"></span>
+		</div>
+		<div class="row">
 			<div class="small-3 columns">
 				<%= f.label :state, "State" %>
 				<%= f.select :state, states, class: "form-field" %>

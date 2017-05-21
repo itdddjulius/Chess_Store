@@ -1,5 +1,5 @@
 <% if !logged_in? || current_user.role == 'customer' %>
-	<%= image_tag("home.png") %>
+	<%= render 'customer_home_page' %>
 <% elsif current_user.role == 'admin' %>
 	<%= render :partial => 'reorder_list' %>
 <% elsif current_user.role == 'manager' %>

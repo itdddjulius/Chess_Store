@@ -23,5 +23,20 @@ class HomeController < ApplicationController
 	def sandbox
 		
 	end
+
+	private
+	def get_cancellable(order)
+		unless order.user_id == current_user.id || current_user.role == 'admin'
+			return false
+		end
+		
+		for oi in order.order_items
+			if oi.shipped_on != nil
+				return false
+			end
+		end
+		return true
+	end
+	helper_method :get_cancellable
   
 end
