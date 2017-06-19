@@ -33,6 +33,7 @@ class UsersController < ApplicationController
 		@user.role = "customer"
 		if @user.save
 			session[:user_id] = @user.id
+			create_cart
 			flash[:welcome] = true
 			redirect_to home_path, notice: "Successfully created your account."
 		else
