@@ -61,13 +61,13 @@ module Populator
           order = FactoryGirl.create(:order, user: customer, school: school, grand_total: 94.95, date: order_day)
           FactoryGirl.create(:order_item, order: order, item: p0, quantity: num_of_sets, shipped_on: nil)
           FactoryGirl.create(:order_item, order: order, item: b0, quantity: num_of_sets, shipped_on: nil)
-          order.grand_total = order.order_items.map{|oi| oi.subtotal(order_day)}.inject(0){|sum,sub| sum += sub} + order.shipping_costs
+          order.grand_total = order.order_items.map{|oi| oi.subtotal(order_day)}.inject(0){|sum,sub| sum += (sub || 0)} + order.shipping_costs
           order.save
         end
       end
       
       def update_order_total(order)
-        order.grand_total = order.order_items.map{|oi| oi.subtotal(order_day.days.ago.to_date)}.inject(0){|sum,sub| sum += sub} + order.shipping_costs
+        order.grand_total = order.order_items.map{|oi| oi.subtotal(order_day.days.ago.to_date)}.inject(0){|sum,sub| sum += sub } + order.shipping_costs
         order.save        
       end
       
