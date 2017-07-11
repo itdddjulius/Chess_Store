@@ -37,6 +37,22 @@ gem 'will_paginate'
 gem 'foundation-rails', '~> 6.3'
 gem 'carrierwave', '1.0.0'
 
+gem 'shoulda'
+gem 'shoulda-matchers'
+gem 'minitest'
+gem 'minitest-rails'
+gem 'minitest-reporters'
+gem 'factory_girl_rails'
+gem 'mocha'
+gem 'cucumber-rails', require: false
+gem 'capybara'
+gem 'database_cleaner'
+gem 'launchy'
+gem 'email_spec'
+gem 'nokogiri'
+gem 'simplecov'
+gem 'single_test'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -60,23 +76,3 @@ group :development do
   gem 'meta_request'
   gem 'letter_opener'
 end
-
-group :test do
-  gem 'shoulda'
-  gem 'shoulda-matchers'
-  gem 'minitest'
-  gem 'minitest-rails'
-  gem 'minitest-reporters'
-  gem 'factory_girl_rails'
-  gem 'mocha'
-  gem 'cucumber-rails', require: false
-  gem 'capybara'
-  gem 'database_cleaner'
-  gem 'launchy'
-  gem 'email_spec'
-  gem 'nokogiri'
-  gem 'simplecov'
-  gem 'single_test'
-end
-
-
