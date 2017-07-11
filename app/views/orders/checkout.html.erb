@@ -69,13 +69,13 @@
 				<div class="small-6 columns">
 					<div class="row">
 						<div class="small-3 columns">
-							<%= f.label :expiration_month, "Month" %>
-							<%= f.number_field :expiration_month, class: "form-field" %>
+							<label for="order_expiration_month">Month</label>
+							<input class="form-field" type="number" max="12" min="1" name="order[expiration_month]" id="order_expiration_month" required>
 						</div>
 						<span class="small-1 columns" style="position: relative; top: 32px;">/</span>
 						<div class="small-5 columns">
 							<%= f.label :expiration_year, "Year" %>
-							<%= f.number_field :expiration_year, class: "form-field" %>
+							<input class="form-field" type="number" name="order[expiration_year]" id="order_expiration_year" required>
 						</div>
 						<span class="small-3 columns"></span>
 					</div>
