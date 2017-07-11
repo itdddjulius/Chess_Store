@@ -34,7 +34,7 @@
 			<div class="small-3 columns" style="position: relative; right: 45px;">
 				<div id="log" class="row" style="text-align: right; position: relative; bottom: 10px;">
 					<% if logged_in? %>
-						Hello, <%= current_user.proper_name if current_user.proper_name.length > 1 else "Customer" %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Logout', logout_path %>
+						Hello, <% if current_user.proper_name.length > 1 %><%= current_user.proper_name %><% else %>Customer<% end %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Logout', logout_path %>
 					<% else %>
 						<%= link_to 'Login/Register', login_path %>
 					<% end %>
