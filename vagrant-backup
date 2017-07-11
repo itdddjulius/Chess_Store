@@ -1,0 +1,1091 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.5
+-- Dumped by pg_dump version 9.5.5
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: item_prices; Type: TABLE; Schema: public; Owner: vagrant
+--
+
+CREATE TABLE item_prices (
+    id integer NOT NULL,
+    item_id integer,
+    price double precision,
+    category character varying,
+    start_date date,
+    end_date date
+);
+
+
+ALTER TABLE item_prices OWNER TO vagrant;
+
+--
+-- Name: item_prices_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+--
+
+CREATE SEQUENCE item_prices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE item_prices_id_seq OWNER TO vagrant;
+
+--
+-- Name: item_prices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+--
+
+ALTER SEQUENCE item_prices_id_seq OWNED BY item_prices.id;
+
+
+--
+-- Name: items; Type: TABLE; Schema: public; Owner: vagrant
+--
+
+CREATE TABLE items (
+    id integer NOT NULL,
+    name character varying,
+    description text,
+    color character varying,
+    category character varying,
+    weight double precision,
+    inventory_level integer,
+    reorder_level integer,
+    active boolean DEFAULT true
+);
+
+
+ALTER TABLE items OWNER TO vagrant;
+
+--
+-- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+--
+
+CREATE SEQUENCE items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE items_id_seq OWNER TO vagrant;
+
+--
+-- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+--
+
+ALTER SEQUENCE items_id_seq OWNED BY items.id;
+
+
+--
+-- Name: order_items; Type: TABLE; Schema: public; Owner: vagrant
+--
+
+CREATE TABLE order_items (
+    id integer NOT NULL,
+    order_id integer,
+    item_id integer,
+    quantity integer,
+    shipped_on date
+);
+
+
+ALTER TABLE order_items OWNER TO vagrant;
+
+--
+-- Name: order_items_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+--
+
+CREATE SEQUENCE order_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE order_items_id_seq OWNER TO vagrant;
+
+--
+-- Name: order_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+--
+
+ALTER SEQUENCE order_items_id_seq OWNED BY order_items.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: vagrant
+--
+
+CREATE TABLE orders (
+    id integer NOT NULL,
+    date date,
+    school_id integer,
+    user_id integer,
+    grand_total double precision,
+    payment_receipt character varying
+);
+
+
+ALTER TABLE orders OWNER TO vagrant;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+--
+
+CREATE SEQUENCE orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE orders_id_seq OWNER TO vagrant;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+--
+
+ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
+
+
+--
+-- Name: purchases; Type: TABLE; Schema: public; Owner: vagrant
+--
+
+CREATE TABLE purchases (
+    id integer NOT NULL,
+    item_id integer,
+    quantity integer,
+    date date
+);
+
+
+ALTER TABLE purchases OWNER TO vagrant;
+
+--
+-- Name: purchases_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+--
+
+CREATE SEQUENCE purchases_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE purchases_id_seq OWNER TO vagrant;
+
+--
+-- Name: purchases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+--
+
+ALTER SEQUENCE purchases_id_seq OWNED BY purchases.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: vagrant
+--
+
+CREATE TABLE schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE schema_migrations OWNER TO vagrant;
+
+--
+-- Name: schools; Type: TABLE; Schema: public; Owner: vagrant
+--
+
+CREATE TABLE schools (
+    id integer NOT NULL,
+    name character varying,
+    street_1 character varying,
+    street_2 character varying,
+    city character varying,
+    state character varying,
+    zip character varying,
+    min_grade integer,
+    max_grade integer,
+    active boolean DEFAULT true
+);
+
+
+ALTER TABLE schools OWNER TO vagrant;
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+--
+
+CREATE SEQUENCE schools_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE schools_id_seq OWNER TO vagrant;
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+--
+
+ALTER SEQUENCE schools_id_seq OWNED BY schools.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: vagrant
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    email character varying,
+    phone character varying,
+    username character varying,
+    password_digest character varying,
+    role character varying,
+    active boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE users OWNER TO vagrant;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO vagrant;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY item_prices ALTER COLUMN id SET DEFAULT nextval('item_prices_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY items ALTER COLUMN id SET DEFAULT nextval('items_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY order_items ALTER COLUMN id SET DEFAULT nextval('order_items_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY purchases ALTER COLUMN id SET DEFAULT nextval('purchases_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: item_prices; Type: TABLE DATA; Schema: public; Owner: vagrant
+--
+
+COPY item_prices (id, item_id, price, category, start_date, end_date) FROM stdin;
+1	1	2.04999999999999982	manufacturer	2015-06-10	2015-12-10
+2	1	3.07499999999999973	wholesale	2015-06-10	2015-12-10
+3	1	2.29999999999999982	manufacturer	2015-12-10	2016-06-10
+4	1	4.48499999999999943	wholesale	2015-12-10	2016-06-10
+5	1	2.54999999999999982	manufacturer	2016-06-10	2016-12-10
+7	1	2.79999999999999982	manufacturer	2016-12-10	\N
+6	1	4.46249999999999947	wholesale	2016-06-10	2016-12-10
+8	1	5.17999999999999972	wholesale	2016-12-10	\N
+9	3	1.89999999999999991	manufacturer	2015-06-10	2015-12-10
+10	3	3.51500000000000012	wholesale	2015-06-10	2015-12-10
+11	3	2.19999999999999973	manufacturer	2015-12-10	2016-06-10
+12	3	3.29999999999999982	wholesale	2015-12-10	2016-06-10
+13	3	2.34999999999999964	manufacturer	2016-06-10	2016-12-10
+15	3	2.49999999999999956	manufacturer	2016-12-10	\N
+14	3	4.58249999999999957	wholesale	2016-06-10	2016-12-10
+16	3	4.87499999999999911	wholesale	2016-12-10	\N
+17	5	1.94999999999999996	manufacturer	2015-06-10	2015-12-10
+18	5	2.92499999999999982	wholesale	2015-06-10	2015-12-10
+19	5	2.20000000000000018	manufacturer	2015-12-10	2016-06-10
+20	5	4.07000000000000028	wholesale	2015-12-10	2016-06-10
+21	5	2.45000000000000018	manufacturer	2016-06-10	2016-12-10
+23	5	2.60000000000000009	manufacturer	2016-12-10	\N
+22	5	4.77749999999999986	wholesale	2016-06-10	2016-12-10
+24	5	4.54999999999999982	wholesale	2016-12-10	\N
+25	7	1.89999999999999991	manufacturer	2015-06-10	2015-12-10
+26	7	2.84999999999999964	wholesale	2015-06-10	2015-12-10
+27	7	2.10000000000000009	manufacturer	2015-12-10	2016-06-10
+28	7	4.09499999999999975	wholesale	2015-12-10	2016-06-10
+29	7	2.35000000000000009	manufacturer	2016-06-10	2016-12-10
+31	7	2.5	manufacturer	2016-12-10	\N
+30	7	3.52500000000000036	wholesale	2016-06-10	2016-12-10
+32	7	3.75	wholesale	2016-12-10	\N
+33	2	2.85000000000000009	manufacturer	2015-06-10	2015-12-10
+34	2	4.27500000000000036	wholesale	2015-06-10	2015-12-10
+35	2	3.10000000000000009	manufacturer	2015-12-10	2016-06-10
+36	2	4.65000000000000036	wholesale	2015-12-10	2016-06-10
+37	2	3.25	manufacturer	2016-06-10	2016-12-10
+39	2	3.45000000000000018	manufacturer	2016-12-10	\N
+38	2	5.6875	wholesale	2016-06-10	2016-12-10
+40	2	6.38250000000000028	wholesale	2016-12-10	\N
+41	4	2.85000000000000009	manufacturer	2015-06-10	2015-12-10
+42	4	4.98749999999999982	wholesale	2015-06-10	2015-12-10
+43	4	3	manufacturer	2015-12-10	2016-06-10
+44	4	5.84999999999999964	wholesale	2015-12-10	2016-06-10
+45	4	3.25	manufacturer	2016-06-10	2016-12-10
+47	4	3.5	manufacturer	2016-12-10	\N
+46	4	5.6875	wholesale	2016-06-10	2016-12-10
+48	4	6.82500000000000018	wholesale	2016-12-10	\N
+49	6	2.89999999999999991	manufacturer	2015-06-10	2015-12-10
+50	6	5.07500000000000018	wholesale	2015-06-10	2015-12-10
+51	6	3.29999999999999982	manufacturer	2015-12-10	2016-06-10
+52	6	6.43499999999999961	wholesale	2015-12-10	2016-06-10
+53	6	3.5	manufacturer	2016-06-10	2016-12-10
+55	6	3.75	manufacturer	2016-12-10	\N
+54	6	6.82500000000000018	wholesale	2016-06-10	2016-12-10
+56	6	7.3125	wholesale	2016-12-10	\N
+57	8	2.94999999999999973	manufacturer	2015-06-10	2015-12-10
+58	8	5.45749999999999957	wholesale	2015-06-10	2015-12-10
+59	8	3.09999999999999964	manufacturer	2015-12-10	2016-06-10
+60	8	5.42499999999999893	wholesale	2015-12-10	2016-06-10
+61	8	3.24999999999999956	manufacturer	2016-06-10	2016-12-10
+63	8	3.49999999999999956	manufacturer	2016-12-10	\N
+62	8	6.33749999999999858	wholesale	2016-06-10	2016-12-10
+64	8	6.47499999999999964	wholesale	2016-12-10	\N
+65	10	5.95000000000000018	manufacturer	2015-07-10	2016-07-10
+66	10	8.94999999999999929	wholesale	2015-07-10	2016-07-10
+67	10	6.25	manufacturer	2016-07-10	2016-07-10
+69	10	7.5	manufacturer	2016-07-10	\N
+68	10	9.94999999999999929	wholesale	2016-07-10	2016-07-10
+70	10	13.9499999999999993	wholesale	2016-07-10	\N
+71	11	1.75	manufacturer	2015-06-10	2015-12-10
+72	11	3.41250000000000009	wholesale	2015-06-10	2015-12-10
+73	11	2.14999999999999991	manufacturer	2015-12-10	2016-06-10
+74	11	4.19249999999999989	wholesale	2015-12-10	2016-06-10
+75	11	2.35000000000000009	manufacturer	2016-06-10	2016-12-10
+77	11	2.64999999999999991	manufacturer	2016-12-10	\N
+76	11	4.11249999999999982	wholesale	2016-06-10	2016-12-10
+78	11	5.16749999999999954	wholesale	2016-12-10	\N
+79	12	1.85000000000000009	manufacturer	2015-06-10	2015-12-10
+80	12	3.60749999999999993	wholesale	2015-06-10	2015-12-10
+81	12	2	manufacturer	2015-12-10	2016-06-10
+82	12	3	wholesale	2015-12-10	2016-06-10
+83	12	2.20000000000000018	manufacturer	2016-06-10	2016-12-10
+85	12	2.45000000000000018	manufacturer	2016-12-10	\N
+84	12	4.29000000000000004	wholesale	2016-06-10	2016-12-10
+86	12	4.28750000000000053	wholesale	2016-12-10	\N
+87	13	1.85000000000000009	manufacturer	2015-06-10	2015-12-10
+88	13	3.60749999999999993	wholesale	2015-06-10	2015-12-10
+89	13	2.10000000000000009	manufacturer	2015-12-10	2016-06-10
+90	13	4.09499999999999975	wholesale	2015-12-10	2016-06-10
+91	13	2.5	manufacturer	2016-06-10	2016-12-10
+93	13	2.70000000000000018	manufacturer	2016-12-10	\N
+92	13	4.875	wholesale	2016-06-10	2016-12-10
+94	13	4.05000000000000071	wholesale	2016-12-10	\N
+95	14	1.75	manufacturer	2015-06-10	2015-12-10
+96	14	3.41250000000000009	wholesale	2015-06-10	2015-12-10
+97	14	1.89999999999999991	manufacturer	2015-12-10	2016-06-10
+98	14	3.70499999999999963	wholesale	2015-12-10	2016-06-10
+99	14	2.14999999999999991	manufacturer	2016-06-10	2016-12-10
+101	14	2.44999999999999973	manufacturer	2016-12-10	\N
+100	14	3.22499999999999964	wholesale	2016-06-10	2016-12-10
+102	14	4.77749999999999897	wholesale	2016-12-10	\N
+103	15	1.69999999999999996	manufacturer	2015-06-10	2015-11-10
+104	15	3.31499999999999995	wholesale	2015-06-10	2015-11-10
+105	15	1.89999999999999991	manufacturer	2015-11-10	2016-04-10
+106	15	2.84999999999999964	wholesale	2015-11-10	2016-04-10
+107	15	2.29999999999999982	manufacturer	2016-04-10	2016-09-10
+108	15	4.48499999999999943	wholesale	2016-04-10	2016-09-10
+109	15	2.59999999999999964	manufacturer	2016-09-10	2017-02-10
+111	15	2.84999999999999964	manufacturer	2017-02-10	\N
+110	15	4.54999999999999893	wholesale	2016-09-10	2017-02-10
+112	15	4.98749999999999893	wholesale	2017-02-10	\N
+113	16	39.9500000000000028	manufacturer	2016-07-10	2017-01-10
+114	16	42	manufacturer	2017-01-10	2017-06-26
+115	16	44.9500000000000028	manufacturer	2017-06-26	\N
+116	16	69.9500000000000028	wholesale	2016-07-10	2017-01-10
+117	16	75	wholesale	2017-01-10	2017-06-26
+118	16	79.9500000000000028	wholesale	2017-06-26	\N
+119	18	10.9499999999999993	manufacturer	2015-07-10	\N
+120	19	21.9499999999999993	manufacturer	2015-07-10	\N
+121	20	19.9499999999999993	manufacturer	2015-07-10	\N
+122	21	60	manufacturer	2015-07-10	\N
+123	18	14.9499999999999993	wholesale	2015-07-10	\N
+124	19	39.9500000000000028	wholesale	2015-07-10	\N
+125	20	34.9500000000000028	wholesale	2015-07-10	\N
+126	21	99.9500000000000028	wholesale	2015-07-10	\N
+127	22	6.95000000000000018	manufacturer	2015-07-10	\N
+128	23	6.95000000000000018	manufacturer	2015-07-10	\N
+129	24	19.9499999999999993	manufacturer	2015-07-10	\N
+130	25	1.5	manufacturer	2015-07-10	\N
+131	22	6.95000000000000018	wholesale	2015-07-10	\N
+132	23	6.95000000000000018	wholesale	2015-07-10	\N
+133	24	19.9499999999999993	wholesale	2015-07-10	\N
+134	25	1.5	wholesale	2015-07-10	\N
+\.
+
+
+--
+-- Name: item_prices_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+--
+
+SELECT pg_catalog.setval('item_prices_id_seq', 134, true);
+
+
+--
+-- Data for Name: items; Type: TABLE DATA; Schema: public; Owner: vagrant
+--
+
+COPY items (id, name, description, color, category, weight, inventory_level, reorder_level, active) FROM stdin;
+9	Zagreb Chess Pieces	This is a beautiful reproduction of Zagreb Chess Set used at major international chess tournaments. The queens and bishops have a contrasting color ball on top and the king has a contrasting crown. The knight is a most interesting piece. Patterned after a Russian knight, he has his head down, a closed mouth, a dramatically carved head, and thin curved neck above his thick chest.  As with all wood pieces, sets many have variations in colors of grain within a set.  These pieces are weighted.	brown/tan	pieces	2.25	25	10	f
+5	Basic Chess Pieces - 3.5 inch King	The Basic Chess Pieces are our least expensive pieces and are ideal for schools and clubs working on a tight budget. These chess sets meet all chess tournament standards and regulations. They are a standard Staunton design and have a 3 3/4 inch tall King with a 1 1/2 inch felt paper base.	black/white	pieces	0.849999999999999978	225	25	t
+2	Weighted Chess Pieces - 2.25 inch King	Our Weighted Tournament Chess Pieces are just that - heavy! The entire set weighs in at just over 2 pounds and has a nice weighted feel. The pieces are easy to play with and their weight makes them perfect for tournaments or blitz play. With a King of 3 3/4 inch tall and a 1 1/2 inch base, these pieces meet all tournament regulations. The set includes extra queens as well.	black/white	pieces	2.20000000000000018	230	25	t
+1	Basic Chess Pieces - 2.25 inch King	The Basic Chess Pieces are our least expensive pieces and are ideal for schools and clubs working on a tight budget. These chess sets meet all chess tournament standards and regulations. They are a standard Staunton design and have a 3 3/4 inch tall King with a 1 1/2 inch felt paper base.	black/white	pieces	0.849999999999999978	220	25	t
+6	Weighted Chess Pieces - 3.5 inch King	Our Weighted Tournament Chess Pieces are just that - heavy! The entire set weighs in at just over 2 pounds and has a nice weighted feel. The pieces are easy to play with and their weight makes them perfect for tournaments or blitz play. With a King of 3 3/4 inch tall and a 1 1/2 inch base, these pieces meet all tournament regulations. The set includes extra queens as well.	black/white	pieces	2.20000000000000018	235	25	t
+7	Basic Chess Pieces - 4 inch King	The Basic Chess Pieces are our least expensive pieces and are ideal for schools and clubs working on a tight budget. These chess sets meet all chess tournament standards and regulations. They are a standard Staunton design and have a 3 3/4 inch tall King with a 1 1/2 inch felt paper base.	black/white	pieces	0.849999999999999978	315	25	t
+3	Basic Chess Pieces - 3 inch King	The Basic Chess Pieces are our least expensive pieces and are ideal for schools and clubs working on a tight budget. These chess sets meet all chess tournament standards and regulations. They are a standard Staunton design and have a 3 3/4 inch tall King with a 1 1/2 inch felt paper base.	black/white	pieces	0.849999999999999978	190	25	t
+4	Weighted Chess Pieces - 3 inch King	Our Weighted Tournament Chess Pieces are just that - heavy! The entire set weighs in at just over 2 pounds and has a nice weighted feel. The pieces are easy to play with and their weight makes them perfect for tournaments or blitz play. With a King of 3 3/4 inch tall and a 1 1/2 inch base, these pieces meet all tournament regulations. The set includes extra queens as well.	black/white	pieces	2.20000000000000018	280	25	t
+10	Wooden Chess Pieces	These beautiful wooden chess pieces are a great addition to any chess pieces collection or entry-level wood chess sets. The pieces are specifically designed to offer a solid, durable style that can stand up to abuse without breaking. They are designed with a simple but traditional style and are available in two wood finishes for the dark pieces. Light pieces are made from light boxwood, and dark pieces are made from sheesham. Each set features a full 32 pieces. These pieces are lightly weighted.	brown/tan	pieces	2	160	10	t
+8	Weighted Chess Pieces - 4 inch King	Our Weighted Tournament Chess Pieces are just that - heavy! The entire set weighs in at just over 2 pounds and has a nice weighted feel. The pieces are easy to play with and their weight makes them perfect for tournaments or blitz play. With a King of 3 3/4 inch tall and a 1 1/2 inch base, these pieces meet all tournament regulations. The set includes extra queens as well.	black/white	pieces	2.20000000000000018	270	25	t
+12	Vinyl Chess Board - Blue & White	These Vinyl Chess Boards are just what their name implies - a good basic chess board which meets all tournament standards. Board measures 20x20 inches with 2.25 inch square and all boards have clear and legible algebraic notation.	blue/white	boards	0.5	230	25	t
+17	Rosewood Chess Board	This beautiful wood chess board is made of maple and rosewood with a very distinct and luxurious grain. The board has a narrow black accent separating the border from the squares, and the rosewood border features a black beveled edge. It makes an outstanding board for chess pieces with a king height of 3 3/4 inches. The board is backed with felt so it will not scratch the surface where it sits.	brown/tan	boards	2.25	100	25	f
+11	Vinyl Chess Board - Green & White	These Vinyl Chess Boards are just what their name implies - a good basic chess board which meets all tournament standards. Board measures 20x20 inches with 2.25 inch square and all boards have clear and legible algebraic notation.	green/white	boards	0.5	230	25	t
+13	Vinyl Chess Board - Black & White	These Vinyl Chess Boards are just what their name implies - a good basic chess board which meets all tournament standards. Board measures 20x20 inches with 2.25 inch square and all boards have clear and legible algebraic notation.	black/white	boards	0.5	205	25	t
+14	Vinyl Chess Board - Red & White	These Vinyl Chess Boards are just what their name implies - a good basic chess board which meets all tournament standards. Board measures 20x20 inches with 2.25 inch square and all boards have clear and legible algebraic notation.	red/white	boards	0.5	210	25	t
+15	Mahogany Wood Chess Board	This attractive and affordable chess board features a classic 1-1/2 inch mahogany border. The squares are 2-1/8 inch and the board is 1/2 inch thick. It is made in Poland of quality manufacturing with alternating Mahogany squares.	brown/tan	boards	2.10000000000000009	415	25	t
+16	Maple Wood Chess Board	This board is composed of alternating 2 1/4 inch maple and walnut squares. It has a beautiful, unique 2 inch maple border with walnut trim around the playing surface for the perfect contrast. It makes an elegant companion to chess pieces with a king base of 1 3/8 inch to 1 3/4 inch (3-3/4 inch king height).  The board is backed with felt so it will not scratch the surface where it sits. It will look great with pieces featuring light or natural wooden tones.	brown/tan	boards	2.20000000000000018	100	25	t
+18	Basic Analog Chess Clock	This Basic Chess Clock is an easy to use analog clock in an attractive black plastic case. Just wind up the movement, set the hands and you are ready to go. This chess clock is ideal for schools & clubs or for anyone who wants the simplicity of an analog chess clock.	black	clocks	0.900000000000000022	100	25	t
+19	ZMF-II Digital Chess Timer Red	The ZMF-II has modern, bright LED display technology, stainless steel, accurate, touch sense buttons, and a red durable plastic case made here in the USA. The ZMF-II has fewer features than the Chronos, but most everything you will need. Chronos has a metal case. ZMF-II is plastic. However at half the price you can buy two for the price of a Chronos.	red	clocks	1	10	25	t
+20	ZMF-II Digital Chess Timer Green	The ZMF-II has modern, bright LED display technology, stainless steel, accurate, touch sense buttons, and durable plastic case made here in the USA. The ZMF-II has fewer features than the Chronos, but most everything you will need. Chronos has a metal case. ZMF-II is plastic. However at half the price you can buy two for the price of a Chronos.	green/black	clocks	1	50	25	t
+21	Chronos Chess Clock	Our best chess clock, the Chronos Digital Chess Clock has two 2 LCD screens in a metal casing with touch sensors so that you don't push the button down; it just senses the slightest brush of your finger. It has 4 preset blitz times, 8 preset tournament controls, move counter, a new GO! time setting, and many other adjustments. It is also fully customizable and can have any delay or increment time as well--perfect for chess tournaments.	beige	clocks	1.19999999999999996	30	25	t
+22	Carry-All Tournament Chess Set Bag Green	The Carryall Tournament Chess Bags are the perfect answer for storing and carrying all of your chess equipment. Each 24 inch x 7 inch chess bag is made of durable nylon canvas and will hold a rolled-up chess board, a full set of chess pieces, and most chess clocks.	green	supplies	0.299999999999999989	50	25	t
+23	Carry-All Tournament Chess Set Bag Brown	The Carryall Tournament Chess Bags are the perfect answer for storing and carrying all of your chess equipment. Each 24 inch x 7 inch chess bag is made of durable nylon canvas and will hold a rolled-up chess board, a full set of chess pieces, and most chess clocks.	brown	supplies	0.299999999999999989	50	25	t
+24	Chess Demo Board and Pieces	Our Chess Demo Board with Clear Pieces & Bag is our most up-to-date, as well as our largest chess demo board. It is a huge 36 inch size with 4 inch squares so you can use this board to teach large groups of students easily.	green/white	supplies	2	20	25	t
+25	Softcover Quality Scorebook	Each scorebook holds 50 chess games and is spiral bound for easy access to your games and so you won't lose them. They also have a cardstock cover and back page for durability and protection. Each page holds 100 moves per sheet and has a blank diagram for special or adjourned positions.	orange	supplies	0.25	20	25	t
+\.
+
+
+--
+-- Name: items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+--
+
+SELECT pg_catalog.setval('items_id_seq', 25, true);
+
+
+--
+-- Data for Name: order_items; Type: TABLE DATA; Schema: public; Owner: vagrant
+--
+
+COPY order_items (id, order_id, item_id, quantity, shipped_on) FROM stdin;
+1	1	4	3	2015-08-03
+2	1	11	3	2015-08-03
+3	2	5	3	2015-12-20
+4	2	15	3	2015-12-20
+5	3	5	5	2016-04-28
+6	3	15	5	2016-04-28
+7	4	5	6	2016-09-26
+8	4	15	6	2016-09-26
+9	5	5	4	2017-02-18
+10	5	15	4	2017-02-18
+11	6	5	6	2015-07-18
+12	6	15	6	2015-07-18
+13	7	4	2	2015-12-20
+14	7	11	2	2015-12-20
+15	8	5	5	2016-05-13
+16	8	15	5	2016-05-13
+17	9	5	5	2016-09-25
+18	9	15	5	2016-09-25
+19	10	5	5	2017-02-01
+20	10	15	5	2017-02-01
+21	11	5	6	2015-12-10
+22	11	15	6	2015-12-10
+23	12	5	5	2016-05-02
+24	12	15	5	2016-05-02
+25	13	4	4	2016-09-21
+26	13	11	4	2016-09-21
+27	14	5	3	2017-02-17
+28	14	15	3	2017-02-17
+29	15	5	5	2015-07-17
+30	15	15	5	2015-07-17
+31	16	4	5	2015-12-11
+32	16	11	5	2015-12-11
+33	17	4	5	2016-05-12
+34	17	11	5	2016-05-12
+35	18	5	5	2016-09-26
+36	18	15	5	2016-09-26
+37	19	5	5	2017-02-06
+38	19	15	5	2017-02-06
+39	20	5	2	2015-12-09
+40	20	15	2	2015-12-09
+41	21	5	6	2016-05-03
+42	21	15	6	2016-05-03
+43	22	4	4	2016-09-14
+44	22	11	4	2016-09-14
+45	23	4	5	2017-02-08
+46	23	11	5	2017-02-08
+47	24	4	4	2017-02-09
+48	24	11	4	2017-02-09
+49	25	4	3	2016-08-20
+50	25	11	3	2016-08-20
+51	26	4	5	2016-12-03
+52	26	11	5	2016-12-03
+53	27	4	2	2017-03-09
+54	27	11	2	2017-03-09
+55	28	4	2	2015-11-30
+56	28	11	2	2015-11-30
+57	29	4	5	2017-05-24
+58	29	11	5	2017-05-24
+59	30	4	5	2016-02-16
+60	30	11	5	2016-02-16
+61	31	4	2	2016-03-28
+62	31	11	2	2016-03-28
+63	32	4	2	2016-05-08
+64	32	11	2	2016-05-08
+65	33	4	4	2015-11-05
+66	33	11	4	2015-11-05
+67	34	4	3	2017-01-20
+68	34	11	3	2017-01-20
+69	35	4	4	2016-03-18
+70	35	11	4	2016-03-18
+71	36	4	4	2016-03-25
+72	36	11	4	2016-03-25
+73	37	4	3	2016-08-12
+74	37	11	3	2016-08-12
+75	38	4	5	2016-01-02
+76	38	11	5	2016-01-02
+77	39	4	5	\N
+78	39	11	5	\N
+79	40	4	2	\N
+80	40	11	2	\N
+81	41	4	5	\N
+82	41	11	5	\N
+83	42	4	3	\N
+84	42	11	3	\N
+85	43	4	4	\N
+86	43	11	4	\N
+\.
+
+
+--
+-- Name: order_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+--
+
+SELECT pg_catalog.setval('order_items_id_seq', 86, true);
+
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: vagrant
+--
+
+COPY orders (id, date, school_id, user_id, grand_total, payment_receipt) FROM stdin;
+1	2015-07-31	1	1	31.4499999999999993	\N
+2	2015-12-18	1	1	27.0100000000000016	\N
+3	2016-04-26	1	1	50.5250000000000057	\N
+4	2016-09-23	1	1	64.4650000000000034	\N
+5	2017-02-15	1	1	45.1499999999999986	\N
+6	2015-07-16	2	2	45.9399999999999977	\N
+7	2015-12-18	2	2	25.5850000000000009	\N
+8	2016-05-11	2	2	50.5250000000000057	\N
+9	2016-09-23	2	2	54.3875000000000028	\N
+10	2017-01-31	2	2	53.25	\N
+11	2015-12-08	3	3	43.1499999999999986	\N
+12	2016-05-01	3	3	50.5250000000000057	\N
+13	2016-09-18	3	3	45.9500000000000028	\N
+14	2017-02-15	3	3	34.8624999999999972	\N
+15	2015-07-16	4	4	38.9500000000000028	\N
+16	2015-12-08	4	4	49.5	\N
+17	2016-05-11	4	4	57.7124999999999986	\N
+18	2016-09-23	4	4	54.3875000000000028	\N
+19	2017-02-05	4	4	53.25	\N
+20	2015-12-08	5	5	17.0500000000000007	\N
+21	2016-05-01	5	5	59.8300000000000054	\N
+22	2016-09-13	5	5	45.9500000000000028	\N
+23	2017-02-05	5	5	67.4625000000000057	\N
+24	2017-02-08	15	15	54.7199999999999989	\N
+25	2016-08-19	40	40	35.6499999999999986	\N
+26	2016-12-01	42	42	56.5	\N
+27	2017-03-07	45	45	29.4849999999999994	\N
+28	2015-11-28	34	34	22.3000000000000007	\N
+29	2017-05-22	40	40	67.4625000000000057	\N
+30	2016-02-15	15	15	57.7124999999999986	\N
+31	2016-03-26	33	33	25.5850000000000009	\N
+32	2016-05-06	30	30	25.5850000000000009	\N
+33	2015-11-04	33	33	40.3500000000000014	\N
+34	2017-01-17	8	8	42.2275000000000063	\N
+35	2016-03-17	22	22	46.9200000000000017	\N
+36	2016-03-23	27	27	46.9200000000000017	\N
+37	2016-08-09	39	39	35.6499999999999986	\N
+38	2016-01-01	19	19	57.7124999999999986	\N
+39	2017-07-11	26	26	7.5	\N
+40	2017-07-09	25	25	29.4849999999999994	\N
+41	2017-07-11	24	24	7.5	\N
+42	2017-07-09	11	11	42.2275000000000063	\N
+43	2017-07-09	10	10	54.7199999999999989	\N
+\.
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+--
+
+SELECT pg_catalog.setval('orders_id_seq', 43, true);
+
+
+--
+-- Data for Name: purchases; Type: TABLE DATA; Schema: public; Owner: vagrant
+--
+
+COPY purchases (id, item_id, quantity, date) FROM stdin;
+1	1	25	2015-06-10
+2	1	25	2015-12-10
+3	1	40	2016-06-10
+4	1	30	2016-12-10
+5	3	10	2015-06-10
+6	3	10	2015-12-10
+7	3	40	2016-06-10
+8	3	30	2016-12-10
+9	5	40	2015-06-10
+10	5	25	2015-12-10
+11	5	10	2016-06-10
+12	5	50	2016-12-10
+13	7	50	2015-06-10
+14	7	100	2015-12-10
+15	7	25	2016-06-10
+16	7	40	2016-12-10
+17	2	25	2015-06-10
+18	2	40	2015-12-10
+19	2	25	2016-06-10
+20	2	40	2016-12-10
+21	4	25	2015-06-10
+22	4	30	2015-12-10
+23	4	25	2016-06-10
+24	4	100	2016-12-10
+25	6	50	2015-06-10
+26	6	50	2015-12-10
+27	6	10	2016-06-10
+28	6	25	2016-12-10
+29	8	20	2015-06-10
+30	8	100	2015-12-10
+31	8	30	2016-06-10
+32	8	20	2016-12-10
+33	10	40	2015-07-10
+34	10	30	2016-07-10
+35	10	50	2017-01-10
+36	11	25	2015-06-10
+37	11	40	2015-12-10
+38	11	25	2016-06-10
+39	11	40	2016-12-10
+40	12	40	2015-06-10
+41	12	40	2015-12-10
+42	12	40	2016-06-10
+43	12	10	2016-12-10
+44	13	10	2015-06-10
+45	13	50	2015-12-10
+46	13	20	2016-06-10
+47	13	25	2016-12-10
+48	14	40	2015-06-10
+49	14	10	2015-12-10
+50	14	10	2016-06-10
+51	14	50	2016-12-10
+52	15	100	2015-06-10
+53	15	100	2015-11-10
+54	15	25	2016-04-10
+55	15	40	2016-09-10
+56	15	50	2017-02-10
+57	25	-80	2017-07-09
+\.
+
+
+--
+-- Name: purchases_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+--
+
+SELECT pg_catalog.setval('purchases_id_seq', 57, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: vagrant
+--
+
+COPY schema_migrations (version) FROM stdin;
+20170109231017
+20170109224450
+20170109224451
+20170109224956
+20170109225930
+20170109230201
+20170109230245
+\.
+
+
+--
+-- Data for Name: schools; Type: TABLE DATA; Schema: public; Owner: vagrant
+--
+
+COPY schools (id, name, street_1, street_2, city, state, zip, min_grade, max_grade, active) FROM stdin;
+1	Central Catholic High School	4720 Fifth Avenue	\N	Pittsburgh	PA	15213	9	12	t
+2	Ingomar Middle School	1521 Ingomar Heights Rd	\N	Pittsburgh	PA	15237	6	8	t
+3	Fairview Elementary School	738 Dorseyville Rd	\N	Pittsburgh	PA	15238	0	5	t
+4	Peebles Elementary School	8625 Peebles Rd	\N	Pittsburgh	PA	15237	0	5	t
+5	Oliver High School	2323 Brighton Rd	\N	Pittsburgh	PA	15212	9	12	t
+6	Aldaberg Elementary School	618 Hackett Club	\N	Aldaberg	MS	32706	0	6	t
+7	Shayleechester High School	4597 Sonya Village	\N	Shayleechester	ND	33902	9	12	t
+8	Jimmyville Elementary School	2830 Paucek Courts	\N	Jimmyville	IN	35331	0	5	t
+9	Xanderhaven High School	9534 Adah Drives	\N	Xanderhaven	AL	08377	9	12	t
+10	East Candacemouth Elementary School	62513 Ferry Avenue	\N	East Candacemouth	TN	99313	0	5	t
+11	South Dorisfurt High School	35569 Greg Flats	\N	South Dorisfurt	WV	26822	9	12	t
+12	Lake Bransonville Elementary School	7075 Margot Ranch	\N	Lake Bransonville	HI	20182	0	6	t
+13	Fionaburgh High School	6571 Bonita Loop	\N	Fionaburgh	DE	70521	9	12	t
+14	Omariside Elementary School	9786 Volkman Viaduct	\N	Omariside	AL	10619	0	5	t
+15	East Lewis High School	6824 Hoeger Rue	\N	East Lewis	RI	67086	9	12	t
+16	Brownmouth Elementary School	814 Runolfsdottir Ranch	\N	Brownmouth	AZ	04221	0	6	t
+17	East Pascaletown High School	3811 Deshaun Lane	\N	East Pascaletown	WA	93476	9	12	t
+18	Reichelville Elementary School	234 Laurie Tunnel	\N	Reichelville	MS	32060	0	5	t
+19	West Ileneside High School	36911 Jast Forest	\N	West Ileneside	WY	22548	9	12	t
+20	Emanuelstad Elementary School	449 Damion Cliffs	\N	Emanuelstad	ID	72279	0	6	t
+21	North Fletamouth High School	725 O'Conner Ranch	\N	North Fletamouth	GA	07085	9	12	t
+22	Jamelberg Elementary School	914 Mayer Fort	\N	Jamelberg	DC	35310	0	6	t
+23	New Winnifredchester High School	87485 Libby Brooks	\N	New Winnifredchester	TN	02740	9	12	t
+24	South Ramiro Elementary School	84108 Koss Shore	\N	South Ramiro	VT	22572	0	5	t
+25	Lake Garrison High School	20538 Dandre Flats	\N	Lake Garrison	IA	70662	9	12	t
+26	South Rickey Elementary School	85964 Wintheiser Station	\N	South Rickey	MO	75812	0	6	t
+27	South Madgeville High School	639 Joany Turnpike	\N	South Madgeville	NJ	91336	9	12	t
+28	Ferminberg Elementary School	212 Alda Parkway	\N	Ferminberg	MO	93198	0	6	t
+29	Lyricberg High School	3476 Kirlin Springs	\N	Lyricberg	DE	80802	9	12	t
+30	Elenorfort Elementary School	43695 McLaughlin Hills	\N	Elenorfort	NV	51655	0	6	t
+31	Anibalville High School	3363 Stark Courts	\N	Anibalville	MS	31789	9	12	t
+32	Kesslermouth Elementary School	262 Jeramie Keys	\N	Kesslermouth	FL	06797	0	6	t
+33	Corwinmouth High School	69593 Rhiannon Locks	\N	Corwinmouth	SC	21184	9	12	t
+34	Joanville Elementary School	7613 Arlo Forest	\N	Joanville	MD	19283	0	6	t
+35	North Scottie High School	33351 Paige Rapids	\N	North Scottie	OR	55919	9	12	t
+36	Paytonton Elementary School	329 Stehr Rapids	\N	Paytonton	RI	34355	0	5	t
+37	New Vinnie High School	697 Macejkovic Green	\N	New Vinnie	CO	34451	9	12	t
+38	Eladiotown Elementary School	3705 Burdette Cape	\N	Eladiotown	CA	16639	0	5	t
+39	West Roel High School	29371 Nicklaus Mount	\N	West Roel	ND	44711	9	12	t
+40	New Bryanafort Elementary School	709 George Views	\N	New Bryanafort	NM	97014	0	6	t
+41	North Brandy High School	9799 Rosella Walks	\N	North Brandy	FL	95640	9	12	t
+42	Nitzscheberg Elementary School	7149 Clifton Turnpike	\N	Nitzscheberg	MA	55613	0	6	t
+43	Port Norvalhaven High School	10907 Sawayn Crossing	\N	Port Norvalhaven	CT	14840	9	12	t
+44	Elmohaven Elementary School	7448 Ritchie Spurs	\N	Elmohaven	SC	90951	0	5	t
+45	East Isom High School	1527 Terrell Causeway	\N	East Isom	OR	26203	9	12	t
+\.
+
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+--
+
+SELECT pg_catalog.setval('schools_id_seq', 45, true);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: vagrant
+--
+
+COPY users (id, first_name, last_name, email, phone, username, password_digest, role, active, created_at, updated_at) FROM stdin;
+1	Karen	Irvine	kirvine23@example.com	2703931246	kirvine	$2a$10$p81eMHNhob5peMlvObGmXug8z8DOYCb.0mVO8Vx5m4fwPepOSbWV2	customer	t	2017-07-11 03:28:12.720451	2017-07-11 03:28:12.720451
+2	Mark	Vella	mvella70@example.com	7488845436	mvella	$2a$10$ULsjd5L81WoX.T71w6/mVOhOWi6dYwNfbwXc623NUKXkdyltnW3sW	customer	t	2017-07-11 03:28:12.809972	2017-07-11 03:28:12.809972
+3	Israel	Madueme	imadueme44@example.com	4122682323	imadueme	$2a$10$7zAzKDHvxUq8EFgPRi5vAeU3V6l959uzf01t9LL2h812MxqIKvlp.	customer	t	2017-07-11 03:28:12.927361	2017-07-11 03:28:12.927361
+4	Ben	Junker	bjunker59@example.com	3713973640	bjunker	$2a$10$yZEgXnCWpysLZrYVIVBJ2uaKWuPr3GnPwBNRxBIz3mM9J40pdTCZ2	customer	t	2017-07-11 03:28:13.187972	2017-07-11 03:28:13.187972
+5	Melanie	Freeman	mfreeman57@example.com	6590100171	melfree	$2a$10$ITURGFuB1jv/MTZ5qq80FOtuKU8UES9jPCp3YSAqzuySXOiNampp2	customer	t	2017-07-11 03:28:13.481496	2017-07-11 03:28:13.481496
+6	Mylene	Gorczany	mgorczany57@example.com	2852516603	user1	$2a$10$s5v/YPEFOn7sknnhcjbLV.4yks/gyjLYu82jAaQmJyCj0FQccoh1a	customer	t	2017-07-11 03:28:13.726355	2017-07-11 03:28:13.726355
+7	Beulah	Mayert	bmayert21@example.com	3889159179	user2	$2a$10$MD.r5Dpegm.2iT.AEjh1ou29THMkWjuHst2GatWgHDJG7EsE6SNtm	customer	t	2017-07-11 03:28:13.830815	2017-07-11 03:28:13.830815
+8	Aniya	Weimann	aweimann52@example.com	8423438143	user3	$2a$10$LHGMId3cXXrpeKvsulzaE.IU3ZP89IkiiZLbbtAd55wXJ/WjyIMea	customer	t	2017-07-11 03:28:13.923318	2017-07-11 03:28:13.923318
+9	Melany	Feeney	mfeeney80@example.com	7670531870	user4	$2a$10$2OWIBUluNrPSZFe0op3W7.ytTwCIce5OBnWGCrNQGHAgFJ2iBf1re	customer	t	2017-07-11 03:28:14.03058	2017-07-11 03:28:14.03058
+10	Toy	DuBuque	tdubuque84@example.com	7598263462	user5	$2a$10$ULmSK82bmMvB/jrz6lHEZO3pwr3Z9hYkecnAlG.c.PrJnnmw7WACO	customer	t	2017-07-11 03:28:14.139973	2017-07-11 03:28:14.139973
+11	Lorine	Raynor	lraynor36@example.com	6271382664	user6	$2a$10$du1L1v4vQr7O/7H189m47.c7c3nwQ21cfFKABJMtYONeOFczE5Ia2	customer	t	2017-07-11 03:28:14.243672	2017-07-11 03:28:14.243672
+12	Marcelle	Bogan	mbogan56@example.com	2239812093	user7	$2a$10$wHQ3OzGt2HZ0.9FnV3gVneH9ZmvfMQ1adSN0IPkxOIam73svIE4Bq	customer	t	2017-07-11 03:28:14.359062	2017-07-11 03:28:14.359062
+13	Idella	Emmerich	iemmerich47@example.com	6282439613	user8	$2a$10$cPcwylzEwawuwHrkHWCZB.VQXM4n8Orj5Rmuf3ZNA5WDOx1RP/Fmy	customer	t	2017-07-11 03:28:14.454905	2017-07-11 03:28:14.454905
+14	Everardo	Becker	ebecker89@example.com	1960638466	user9	$2a$10$RSYO1DW3C5XCB6OwsIw0veTIuqTY.CeUZc/PIarmRk4BzfcgrbUpi	customer	t	2017-07-11 03:28:14.55203	2017-07-11 03:28:14.55203
+15	Lennie	Orn	lorn28@example.com	0983651518	user10	$2a$10$/YOLkOo3vyDgURpfmKkGceJ0yMm/3o17LuhmbGIe/zsS.leOQCqeq	customer	t	2017-07-11 03:28:14.740237	2017-07-11 03:28:14.740237
+16	Guy	Hilll	ghilll80@example.com	2208804240	user11	$2a$10$V3T9kTZz6psbItlRdrawp.PoMAOoVQgxBaRXLh7pJ4zpATwT1S/4i	customer	t	2017-07-11 03:28:14.906545	2017-07-11 03:28:14.906545
+17	Dominic	Abernathy	dabernathy22@example.com	3119091072	user12	$2a$10$CGtxNX3iPVpttHjPbDcO3O1dAPNmKMmHIY7l1I7jAIgfFWmiSTz7C	customer	t	2017-07-11 03:28:15.039696	2017-07-11 03:28:15.039696
+18	Tod	Hyatt	thyatt70@example.com	6600698232	user13	$2a$10$Tae3tY4AFaY9DRty9udZVOf20cRlxvUmDq58Pe81KxrnDEO5.4Bda	customer	t	2017-07-11 03:28:15.164849	2017-07-11 03:28:15.164849
+19	Minerva	Orn	morn33@example.com	2589052062	user14	$2a$10$KOQPFMlrgkjhDXENNw3/fOhvL64ZUw7vJ9wMRHXYRWn886.DsYyo.	customer	t	2017-07-11 03:28:15.337124	2017-07-11 03:28:15.337124
+20	Adelia	O'Reilly	ao'reilly75@example.com	9001744607	user15	$2a$10$cOrQtcgUQGtk.8g5YJmhr.t9SGRSh7Nx34kS3tYCesbymiRwaurky	customer	t	2017-07-11 03:28:15.47186	2017-07-11 03:28:15.47186
+21	Brandi	Dicki	bdicki91@example.com	5107488566	user16	$2a$10$UORyRk5UDLT8MZnMYCWMjOYIRkc/bAmeyKxc.19pVA.R21xKypkBS	customer	t	2017-07-11 03:28:15.577235	2017-07-11 03:28:15.577235
+22	Dayna	Steuber	dsteuber45@example.com	5970199295	user17	$2a$10$bPCEo9XHAIrNaQK.vfa2t.0AgyRer7CIk6GYwfnBUSzzUqwtoh23C	customer	t	2017-07-11 03:28:15.674075	2017-07-11 03:28:15.674075
+23	Dayna	Kautzer	dkautzer9@example.com	5357920916	user18	$2a$10$PvTFxyKAIigdw6hW1DYD9.vuL/q8BhYrdqrzrHGN0XoVGspyevaHC	customer	t	2017-07-11 03:28:15.766737	2017-07-11 03:28:15.766737
+24	Isabell	Tillman	itillman76@example.com	0176002790	user19	$2a$10$xOG3mWk/FkvBKDJ3r9EFeuwJ5C4zhWGOu0LWqSukemFYW4vunbt0e	customer	t	2017-07-11 03:28:15.85751	2017-07-11 03:28:15.85751
+25	Frances	Auer	fauer90@example.com	8582207374	user20	$2a$10$GIYHaq3ybRiWii1oJvqMweTJ4bMddq2ni2/qSML2l4fKzEHOWdJbO	customer	t	2017-07-11 03:28:15.954867	2017-07-11 03:28:15.954867
+26	Della	Sporer	dsporer57@example.com	9206111775	user21	$2a$10$fPLcSszGDFybVUuF9cMDSOAzQFaB1EAcMF9erabH5nsV.6whEbA8.	customer	t	2017-07-11 03:28:16.120674	2017-07-11 03:28:16.120674
+27	Zella	Bashirian	zbashirian72@example.com	5440592603	user22	$2a$10$AcGVFEytd72KVbyjQbjBzexHrY0i6l7Y7RuB98T6bghHOfbePHe2u	customer	t	2017-07-11 03:28:16.24146	2017-07-11 03:28:16.24146
+28	Lexie	Kiehn	lkiehn52@example.com	7650797484	user23	$2a$10$MjVjckVhBq.hSHO2oTFxyuzXOpue5tuq1rjKVLp.RVP0RIG4v714O	customer	t	2017-07-11 03:28:16.329054	2017-07-11 03:28:16.329054
+29	Nick	Osinski	nosinski21@example.com	5221758923	user24	$2a$10$4QmHigyimKx8MTkESGhHyeIltC5u.L66pShPCmJfhrDNuaNdxZpCi	customer	t	2017-07-11 03:28:16.468318	2017-07-11 03:28:16.468318
+30	Freeda	Hammes	fhammes6@example.com	7976686430	user25	$2a$10$v61ef2BzfIPET2ZngHiNWOMxcKsdYmW6x13B7YFGqs9vZo4VRmQUa	customer	t	2017-07-11 03:28:16.585218	2017-07-11 03:28:16.585218
+31	Dino	Powlowski	dpowlowski42@example.com	6268625656	user26	$2a$10$b4EdUx0fkHNnyD5DTpvz.O03QvzK0cB.UPPrMqBB48Y0fi251PJgK	customer	t	2017-07-11 03:28:16.677321	2017-07-11 03:28:16.677321
+32	Rod	Hand	rhand24@example.com	6095252788	user27	$2a$10$8a75UFDs8mSRXooqN7YjLOT1ktBZE88CHdRPvkHSYSpU90JjeV0yi	customer	t	2017-07-11 03:28:16.76344	2017-07-11 03:28:16.76344
+33	Eileen	Muller	emuller7@example.com	4636839134	user28	$2a$10$.BQN9I.GmfL61QG0JWTuCuwVjAW74A/zlNd8j.DDljXaCuAVw9dHe	customer	t	2017-07-11 03:28:16.84581	2017-07-11 03:28:16.84581
+34	Keeley	Frami	kframi88@example.com	2179474678	user29	$2a$10$V.gQWqj8gjwciS86r9WXaOPrA.ZVyuE4.89rtX59jjWaqQJSLdJ9m	customer	t	2017-07-11 03:28:16.926086	2017-07-11 03:28:16.926086
+35	Guy	Robel	grobel6@example.com	7129111430	user30	$2a$10$OhuU5hdflfiCrP4PZX0OV.fwaqrgl1eQUOnpZWn4bsxJCKXvgfaM.	customer	t	2017-07-11 03:28:17.011975	2017-07-11 03:28:17.011975
+36	Karley	Hansen	khansen22@example.com	4407092577	user31	$2a$10$CWatXKzyR0MwMX5jo1R1Oe8O.cs4JFr2ptpG/Ai7QIv5OEMkkBtE.	customer	t	2017-07-11 03:28:17.103567	2017-07-11 03:28:17.103567
+37	Wilmer	Frami	wframi46@example.com	5540962715	user32	$2a$10$ppIKBA.66Dq1Q3pWaf.66ewUOy8YwN5s4MzjWhXH0nz/bYzmln0sC	customer	t	2017-07-11 03:28:17.186885	2017-07-11 03:28:17.186885
+38	Zella	Batz	zbatz42@example.com	1106669844	user33	$2a$10$lm6eeZPDmGtJxufhEXfkDeGvRKv6Fg7.eNos6Qw4SQzu5IUkcMK4S	customer	t	2017-07-11 03:28:17.346704	2017-07-11 03:28:17.346704
+39	Kendrick	Swaniawski	kswaniawski75@example.com	4036728342	user34	$2a$10$H.zU3haC3GIBUkotEimVVe9e1TmKSKp.UJIi4jL34b8GiSRfTztxC	customer	t	2017-07-11 03:28:17.436975	2017-07-11 03:28:17.436975
+40	Mallie	Welch	mwelch54@example.com	1638573331	user35	$2a$10$Vne0QdbKtoOvm9VgJwPYRuwFHMLULto/YNWoFU8ovvsjwffNt0L02	customer	t	2017-07-11 03:28:17.526709	2017-07-11 03:28:17.526709
+41	Jenifer	Ullrich	jullrich98@example.com	9402767916	user36	$2a$10$H9nxvVQ/DFA1eIxfIx/JY.YYHvzvDusJMIGtKJFiR5MmNtPZ0MobS	customer	t	2017-07-11 03:28:17.638957	2017-07-11 03:28:17.638957
+42	Walton	Quitzon	wquitzon29@example.com	4525153093	user37	$2a$10$MNfCRWrJo1VMZNzq8.bVUeSqFiIsVZOxVToaZaqxvyMlNM1bpnSeS	customer	t	2017-07-11 03:28:17.721708	2017-07-11 03:28:17.721708
+43	Anderson	Stokes	astokes28@example.com	1075292169	user38	$2a$10$R20aPqCj/q.A3n8HwAI82OYvFtMM50.fTBwOw7ooirpGl.hccJCum	customer	t	2017-07-11 03:28:17.806252	2017-07-11 03:28:17.806252
+44	Darien	McDermott	dmcdermott85@example.com	1476265515	user39	$2a$10$ruvLf270AX6zvBChMKytwenyKn/WeGMrg6SYkt76ZvscVzwi/9Bni	customer	t	2017-07-11 03:28:17.880236	2017-07-11 03:28:17.880236
+45	Claudia	Fritsch	cfritsch81@example.com	9326458019	user40	$2a$10$DVUbPJAGLcane8IzbribUusdppCwBRqtBPT9ETqQv8TzuHfZE6pLe	customer	t	2017-07-11 03:28:18.026048	2017-07-11 03:28:18.026048
+46	Alex	Heimann	aheimann25@example.com	2134447873	tank	$2a$10$x54Cy2ANqes58ZsXNeoLj.9iGCI5SaizP.1ImJhDFzg3A2h1RaGP2	admin	t	2017-07-11 03:28:18.251006	2017-07-11 03:28:18.251006
+47	Mark	Heimann	mheimann92@example.com	4122688211	mark	$2a$10$HwEKglKB8J.IkzF16T7PLOpmljU6mtiq51MK6xWSLiKgw.fYVuiBm	admin	t	2017-07-11 03:28:18.462438	2017-07-11 03:28:18.462438
+48	Rick	Huang	rhuang95@example.com	6474904903	rhuang	$2a$10$29wujV2nRfpn5OSX/8KY3Ov1KoBHLbcMkqWCHRp3D.xaoD.Rv0Mbq	manager	t	2017-07-11 03:28:18.566374	2017-07-11 03:28:18.566374
+49	Connor	Hanley	chanley27@example.com	1928485437	chanley	$2a$10$i2KJsg0t1a8eqgm9p0hTYOL5wUhyzLTfkNmtpyywr1xB6Z54PrzDu	shipper	t	2017-07-11 03:28:18.677183	2017-07-11 03:28:18.677183
+50	Becca	Kern	bkern25@example.com	9593721215	bkern	$2a$10$30Jj02Oq/bvc9CYjbVbXFuXBfMoQTNRNqikC3MzyO6BBH7DWdM5f.	manager	t	2017-07-11 03:28:18.755444	2017-07-11 03:28:18.755444
+51	Sarah	Reyes-Franco	sreyes-franco45@example.com	3862503229	srf	$2a$10$892DwgVjy1bQQ.iR/3xpbOH20EstMW4psAJlC7j6/be8Wn/5t/THm	shipper	t	2017-07-11 03:28:18.836051	2017-07-11 03:28:18.836051
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+--
+
+SELECT pg_catalog.setval('users_id_seq', 51, true);
+
+
+--
+-- Name: item_prices_pkey; Type: CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY item_prices
+    ADD CONSTRAINT item_prices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: items_pkey; Type: CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY items
+    ADD CONSTRAINT items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_items_pkey; Type: CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY order_items
+    ADD CONSTRAINT order_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: purchases_pkey; Type: CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT purchases_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schools_pkey; Type: CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY schools
+    ADD CONSTRAINT schools_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_item_prices_on_item_id; Type: INDEX; Schema: public; Owner: vagrant
+--
+
+CREATE INDEX index_item_prices_on_item_id ON item_prices USING btree (item_id);
+
+
+--
+-- Name: index_order_items_on_item_id; Type: INDEX; Schema: public; Owner: vagrant
+--
+
+CREATE INDEX index_order_items_on_item_id ON order_items USING btree (item_id);
+
+
+--
+-- Name: index_order_items_on_order_id; Type: INDEX; Schema: public; Owner: vagrant
+--
+
+CREATE INDEX index_order_items_on_order_id ON order_items USING btree (order_id);
+
+
+--
+-- Name: index_orders_on_school_id; Type: INDEX; Schema: public; Owner: vagrant
+--
+
+CREATE INDEX index_orders_on_school_id ON orders USING btree (school_id);
+
+
+--
+-- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: vagrant
+--
+
+CREATE INDEX index_orders_on_user_id ON orders USING btree (user_id);
+
+
+--
+-- Name: index_purchases_on_item_id; Type: INDEX; Schema: public; Owner: vagrant
+--
+
+CREATE INDEX index_purchases_on_item_id ON purchases USING btree (item_id);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: vagrant
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: fk_rails_30c7a965d1; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY item_prices
+    ADD CONSTRAINT fk_rails_30c7a965d1 FOREIGN KEY (item_id) REFERENCES items(id);
+
+
+--
+-- Name: fk_rails_3e402078fd; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY order_items
+    ADD CONSTRAINT fk_rails_3e402078fd FOREIGN KEY (item_id) REFERENCES items(id);
+
+
+--
+-- Name: fk_rails_ded4dcfbd3; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_ded4dcfbd3 FOREIGN KEY (school_id) REFERENCES schools(id);
+
+
+--
+-- Name: fk_rails_e2f5de52a5; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_e2f5de52a5 FOREIGN KEY (item_id) REFERENCES items(id);
+
+
+--
+-- Name: fk_rails_e3cb28f071; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY order_items
+    ADD CONSTRAINT fk_rails_e3cb28f071 FOREIGN KEY (order_id) REFERENCES orders(id);
+
+
+--
+-- Name: fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
