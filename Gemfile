@@ -53,12 +53,8 @@ gem 'nokogiri'
 gem 'simplecov'
 gem 'single_test'
 
-
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', '9.0.6'
-  gem 'faker'
-end
+gem 'byebug', '9.0.6'
+gem 'faker'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
