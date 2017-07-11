@@ -322,7 +322,7 @@ background: #2e6ab1;
 color: white;
 padding: 0.4em 0.6em;
 width: 22em;
-margin-bottom: 0.3em;$(function(){ $(document).foundation(); });
+margin-bottom: 0.3em;
 text-align: center; }
 .item-pagination .page_info b {
 color: #000033;
