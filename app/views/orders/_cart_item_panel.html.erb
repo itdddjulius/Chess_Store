@@ -15,7 +15,7 @@
 			<%= form_tag cart_update_path(format: :js), method: 'get', remote: true do %>
 			<%= hidden_field_tag 'item_id', @order_item.item.id %>
 				<div class="small-6 column" style="position: relative; top: 22px; ">
-					<input name="quantity" type="number" value="<%= @order_item.quantity %>" style="max-width: 70px; position: relative;"/>
+					<input name="quantity" type="number" value="<%= @order_item.quantity %>" max="999" style="max-width: 70px; position: relative;"/>
 				</div>
 				<div class="small-6 column"  style="position: relative; top: 18px;">
 					<%= button_tag(type: "submit", class: "cart-action-links link-button") do %>

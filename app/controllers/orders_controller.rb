@@ -95,9 +95,9 @@ class OrdersController < ApplicationController
 	def place
 		@order = Order.new(order_params)
 
-		@order.expiration_year = Integer(@order.expiration_year)
-		@order.expiration_month = Integer(@order.expiration_month)
-		@order.school_id = Integer(@order.school_id)
+		@order.expiration_year = Integer(@order.expiration_year || 0)
+		@order.expiration_month = Integer(@order.expiration_month || 0)
+		@order.school_id = Integer(@order.school_id || -1)
 
 		@order.grand_total = calculate_cart_items_cost + calculate_cart_shipping
 

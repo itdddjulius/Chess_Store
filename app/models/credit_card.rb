@@ -28,6 +28,9 @@ class CreditCard
   
   def expired?
     today = Date.current
+    if expiration_month > 12 or expiration_month < 0
+      return false
+    end
     expiration_year < today.year or (expiration_year == today.year and expiration_month < today.month)
   end
   

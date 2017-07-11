@@ -27,17 +27,23 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="small-6 columns">
+				<%= f.label :city, "City" %>
+				<%= f.text_field :city, class: "form-field" %>
+			</div>
 			<div class="small-3 columns">
 				<%= f.label :state, "State" %>
 				<%= f.select :state, states, class: "form-field" %>
 				<!-- <small class="error">Email can't be blank</small> -->
 			</div>
+			<span class="small-3 columns"></span>
+		</div>
+		<div class="row">
 			<div class="small-6 columns">
 				<%= f.label :zip, "Zip*" %>
 				<%= f.text_field :zip, class: "form-field" %>
 				<!-- <small class="error">Email can't be blank</small> -->
 			</div>
-			<span class="small-3 columns"></span>
 		</div>
 		<hr class="grey-line margin-20-top"/>
 		<div class="row">

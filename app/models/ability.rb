@@ -3,7 +3,6 @@ class Ability
 
   def initialize(user)
     # Define abilities for the passed in user here. For example:
-    #
     user ||= User.new # guest user (not logged in)
 
     can :autocomplete_school_name, School
@@ -13,7 +12,7 @@ class Ability
     end
     can [:read, :create], School
     can [:read, :update, :list], Order do |o|
-        o.user.id === user.id
+        o.user.id == user.id
     end
     can [:read, :browse, :details], Item
 
