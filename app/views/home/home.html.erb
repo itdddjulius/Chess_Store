@@ -1,8 +1,21 @@
 <% if !logged_in? || current_user.role == 'customer' %>
-	<div style="text-align: center;">
-		<h1></h1>
+	<div class="large-basic-container" style="text-align: center;">
+		<h1>Welcome to my 67-272 Application Design and Development Project</h1>
 		<p>
-			
+			Accounts for log-in:<br/>
+			admin@example.com<br/>
+			manager@example.com<br/>
+			shipper@example.com<br/>
+			customer@example.com<br/>
+			<br/>
+			All passwords are <i>'secret'</i> (without quotes)<br/>
+			Feel free to create your own account as well.
+		</p>
+		<h3>Additional Info</h3>
+		<p>
+			<a target="_blank" href="https://github.com/liao-frank/chess-store">Github Repository</a><br/>
+			<a target="_blank" href="http://67272.cmuis.net/home">Course Site</a><br/>
+			My Email: fliao@andrew.cmu.edu
 		</p>
 	</div>
 <% elsif current_user.role == 'admin' %>
