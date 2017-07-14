@@ -3,6 +3,8 @@
 
 This is the repository of my solution for Phase 5 of the [67-272 Chess Store Project](http://67272.cmuis.net/projects). The project was designed and built from the ground up by me.
 
+**The app is hosted on a free on Heroku [here](https://gentle-brushlands-60542.herokuapp.com/). The app may take up to a minute to wake up and load on the first visit.**
+
 ### Prerequisites
 Make sure to have Ruby and Rails installed
 
